@@ -5,7 +5,7 @@ import SiteHeader from "@/components/SiteHeader";
 // Admin paneli (/admin) bunun dışında, kendi koyu düzeniyle.
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
-    <div className="flex flex-1 flex-col bg-masa text-murekkep print:bg-white">
+    <div className="flex flex-1 flex-col bg-masa text-murekkep">
       <SiteHeader />
       <main className="flex-1">{children}</main>
       <SiteFooter />

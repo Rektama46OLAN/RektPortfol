@@ -78,17 +78,6 @@ body {
   outline-offset: 3px;
 }
 
-/* Baskı (CV → PDF indir): A4, beyaz kâğıt; kâğıt rengi baskıda da korunmasın, mürekkep harcamasın. */
-@page {
-  size: A4;
-  margin: 16mm 14mm;
-}
-@media print {
-  body {
-    background: #fff;
-  }
-}
-
 /* Dakay nefes alır; hareket azaltma açıksa durur. */
 @keyframes nefes {
   0%,

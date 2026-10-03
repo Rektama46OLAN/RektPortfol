@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
     // Yalnız kendi Blob depomuz (rektportfol-gorseller, store_gcWo7xyTs7TPVjGv).
     remotePatterns: [new URL("https://gcwo7xyts7tpvjgv.public.blob.vercel-storage.com/**")],
   },
+  // /cv.pdf fontları çalışma anında diskten okur (process.cwd() yolu izlenmeyebilir): fonksiyona dahil et.
+  outputFileTracingIncludes: {
+    "/cv.pdf": ["./src/assets/fonts/**/*"],
+  },
   experimental: {
     serverActions: {
       // Görsel yükleme: varsayılan 1 MB yetmiyor; Vercel'in istek sınırı 4,5 MB

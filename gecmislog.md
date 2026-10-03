@@ -319,3 +319,31 @@ Yarım kalan işler buraya değil `gecmis.md`'ye yazılır.
   opengraph-image.alt.txt}, src/app/(site)/**/page.tsx, src/app/admin/layout.tsx,
   src/components/KisiBilgisi.tsx, src/lib/seo.ts, const.md, notes.md; Vercel: alan adları +
   TXT kaydı; Neon (dev + main): profil.cv_unvan.
+
+## [2026-10-03] Tam denetim + CV'nin PDF olarak indirilmesi — TAMAMLANDI
+- Ne yapıldı: Arda "bütün dosyaları kontrol et, vault'a raporla" dedi. Denetim raporu vault'ta
+  (`🏰 300-Projects/RektPortfol/`, DakLink/E-posta düzeninde 6 not + Threads + Last-Session).
+  Arda'nın kararları: Algida'nın kırpılan ikinci görselini kendisi sildi; CV'de staj bilerek yok;
+  DakLink için "3 sitede denendi" doğru (CV'deki "yüzlerce site" maddesi panelden düzeltilecek);
+  README yazılmayacak. Belge hataları düzeltildi (const.md anasayfa maddesi, gecmislog regex).
+  CV: yazdırma penceresi yerine `/cv.pdf` — `@react-pdf/renderer` ile sunucuda, paneldeki veriden;
+  Archivo + IBM Plex Mono statik TTF'leri (OFL) `src/assets/fonts/`'a indirildi (Arda onayıyla).
+  `PdfButonu` ve baskı CSS'i kaldırıldı. Ortak CV kuralları `src/lib/cv.ts`'te (linkMi, dosya adı).
+- Bitiş kriteri: `/cv.pdf` 200, `application/pdf`, `attachment; filename="Arda-Kaya-CV.pdf"`;
+  tek sayfa A4, Türkçe harfler doğru; production build'de fontlar route'un izine girdi.
+- Yol boyunca çıkanlar:
+  - **Ters bölü iki canlı hata daha üretmişti:** CV sayfasındaki `linkMi` `/s/` olmuştu (boşluk
+    yerine "s" harfi arıyordu, tesadüfen doğru çalışıyordu) ve JSON-LD kaçışı `"\u003c"` olmuştu
+    (JS'te zaten `<`, yani hiçbir şey kaçırmıyordu). Kabuk heredoc'u ve düzenleme aracı ters
+    bölüyü yorumlayabiliyor → düzeltme, ters bölü karakteri kodla (`String.fromCharCode(92)`)
+    üretilerek yapıldı; bütün kaynaktaki ters bölüler tek tek listelendi.
+  - react-pdf `textTransform: uppercase` Türkçe değil (DENEYIM, DILLER) → `toLocaleUpperCase("tr-TR")`.
+  - react-pdf varsayılan hecelemesi Türkçe kelimeleri böler → `registerHyphenationCallback` kapalı.
+  - `renderToBuffer` kökte `<Document>` tipi bekliyor → bileşen fonksiyon olarak çağrıldı.
+  - Görev durdurulduğu hâlde üç Next süreci yaşıyordu (Faz 3b dersi tekrar) → PID ile kapatıldı.
+  - `npm audit`: canlı bağımlılıklarda 0; geliştirme tarafında `braces` 5 yüksek uyarı —
+    `eslint-config-next` içinden, önceden de vardı, siteye girmiyor.
+- Dokunulan dosyalar: src/app/cv.pdf/route.ts, src/components/CvBelgesi.tsx, src/lib/cv.ts,
+  src/assets/fonts/*, src/app/(site)/cv/page.tsx, src/components/{KisiBilgisi,SiteHeader,
+  SiteFooter}.tsx, src/app/(site)/layout.tsx, src/app/globals.css, next.config.ts,
+  package.json, package-lock.json, const.md, gecmislog.md; PdfButonu.tsx silindi.

@@ -28,7 +28,7 @@ export default async function KisiBilgisi() {
     <script
       type="application/ld+json"
       // Next rehberi: JSON.stringify "<" kaçırmaz; panelden gelen metin script'i kapatamasın.
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(veri).replace(/</g, "\u003c") }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(veri).replace(/</g, "\\u003c") }}
     />
   );
 }

@@ -8,7 +8,7 @@ export default async function SiteFooter() {
   cacheLife("minutes");
   const [profil, sosyal] = await Promise.all([getProfil(), getSosyalLinkler()]);
   return (
-    <footer className="mt-20 border-t-2 border-murekkep bg-murekkep text-kagit print:hidden">
+    <footer className="mt-20 border-t-2 border-murekkep bg-murekkep text-kagit">
       <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-8">
         <p className="etiket text-cetvel">
           © {new Date().getFullYear()} {profil.kisa_ad}

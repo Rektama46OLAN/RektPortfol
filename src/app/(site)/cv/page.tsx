@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Balon from "@/components/Balon";
 import Dakay from "@/components/Dakay";
-import PdfButonu from "@/components/PdfButonu";
+import { linkMi, pdfDosyaAdi } from "@/lib/cv";
 import { getCv, getProfil, getSosyalLinkler, type CvKalem } from "@/lib/icerik";
 import { dakayDer } from "@/lib/site";
 
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 // CV masanın üstünde duran bir kâğıt: model sheet'in başlık bloğu + künye tablosu,
 // bölüm başlıkları dar afiş harfle. Dakay kâğıdın kenarından gözlüğünü indirip okur.
 // Uzun bölümler kapalı gelir (sayfa telefonda ~3200 px'ti); başlığa tıklayınca açılır.
-// PDF: PdfButonu → tarayıcının baskısı, baskıda her bölüm açık (const.md).
+// "PDF indir" /cv.pdf'i indirir: aynı veriden sunucuda üretilen dosya (const.md).
 
 function Bolum({
   baslik,
@@ -36,7 +36,7 @@ function Bolum({
         </span>
         <span
           aria-hidden
-          className="inline-flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-murekkep bg-kagit-2 font-mono text-lg leading-none transition-transform group-open:rotate-45 print:hidden"
+          className="inline-flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-murekkep bg-kagit-2 font-mono text-lg leading-none transition-transform group-open:rotate-45"
         >
           +
         </span>
@@ -45,10 +45,6 @@ function Bolum({
     </details>
   );
 }
-
-// "alt" alanı hem tarih ("Eylül 2026") hem link ("github.com/…") taşıyor; Arda tarihlerin
-// görünmesini istemedi (2026-10-03) — yalnız link gibi duranlar gösterilir.
-const linkMi = (s: string) => !/s/.test(s) && s.includes(".");
 
 function Kalemler({ kalemler }: { kalemler: CvKalem[] }) {
   return (
@@ -81,10 +77,10 @@ export default async function Cv() {
     ...linkler.map((s) => ({ ad: s.etiket, deger: s.gorunen, href: s.href })),
   ];
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 pt-36 sm:px-8 sm:pt-32 print:max-w-none print:p-0">
-      <article className="relative border-2 border-murekkep bg-kagit px-5 pt-8 pb-2 shadow-sert sm:px-10 sm:pt-10 print:border-0 print:bg-white print:p-0 print:shadow-none">
+    <div className="mx-auto w-full max-w-4xl px-4 pt-36 sm:px-8 sm:pt-32">
+      <article className="relative border-2 border-murekkep bg-kagit px-5 pt-8 pb-2 shadow-sert sm:px-10 sm:pt-10">
         {/* Kâğıdın üst kenarından bakan Dakay */}
-        <div aria-hidden className="absolute right-6 bottom-full flex items-end gap-1 sm:right-10 print:hidden">
+        <div aria-hidden className="absolute right-6 bottom-full flex items-end gap-1 sm:right-10">
           <Balon satirlar={dakayDer.cv} kuyruk="sag" className="mb-12" />
           <Dakay kirp="kafa" ifade="meh" gozlukIndi etiket="" className="w-36 translate-y-[3px]" />
         </div>
@@ -93,9 +89,13 @@ export default async function Cv() {
           <p className="etiket text-[13px] text-mavi">Özgeçmiş · CV</p>
           <h1 className="afis mt-3 pt-[0.08em] text-[clamp(3rem,9vw,5.5rem)]">{profil.ad}</h1>
           <p className="mt-3 text-lg font-semibold">{profil.cv_unvan}</p>
-          <div className="mt-5 print:hidden">
-            <PdfButonu />
-          </div>
+          <a
+            href="/cv.pdf"
+            download={pdfDosyaAdi(profil.ad)}
+            className="basilir mt-5 inline-block rounded-full border-2 border-murekkep bg-turuncu px-5 py-2.5 text-sm font-semibold"
+          >
+            PDF indir ↓
+          </a>
           {/* Hücre çizgileri: aradaki 1.5px boşluktan mürekkep zemin görünür. Tek kalan son hücre iki sütuna yayılır. */}
           <dl className="mt-6 grid gap-[1.5px] border-[1.5px] border-murekkep bg-murekkep text-sm sm:grid-cols-2">
             {kunye.map((k) => (

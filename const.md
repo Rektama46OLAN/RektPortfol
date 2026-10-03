@@ -41,15 +41,17 @@ diye tekrar tartışılır; asıl maliyet orada.
   v3'te model sheet'in başlık bloğu + İFADELER bölümüne döndü; Dakay'ın etrafındaki "Tanışma"
   paneli ve kılavuz çizgileri Arda'nın isteğiyle kaldırıldı (2026-10-03).
 
-- **CV bir PDF dosyası değildir; içeriği `/cv` sayfasına metin olarak yazılır. "PDF indir" butonu aynı sayfayı tarayıcının baskısıyla A4 PDF'e çevirir.**
-  Gerekçe: Arda'nın kararı (2026-10-03, Faz 2 içeriği verilirken). Sayfa metni hem
+- **CV'nin kaynağı paneldeki veridir; `/cv` sayfasında metin olarak durur, "PDF indir" `/cv.pdf`'i indirir — PDF aynı veriden sunucuda (`@react-pdf/renderer`) üretilir, elle yüklenen bir dosya yoktur.**
+  Gerekçe: Arda'nın kararı (2026-10-03, Faz 2 içeriği verilirken): sayfa metni hem
   okunur hem admin panelinden alan alan düzenlenebilir; PDF'i her değişiklikte yeniden
-  üretip yüklemek gerekmez. Sonra Arda PDF istedi, çünkü sayfa telefonda ~3200 px'ti
-  (2026-10-03). Gömülü PDF telefonda daha kötü okunduğu için seçilen yol: Deneyim, Projeler,
-  Yetenekler bölümleri her genişlikte kapalı gelir (başlığa tıklayınca açılır) + baskı
-  düzeninden PDF — PDF her zaman paneldeki veriyle aynı, ayrı dosya yok. Baskıdan önce
-  bütün bölümler açılır (`PdfButonu`). Kalemlerin "alt" satırındaki tarihler gösterilmez,
-  link gibi duranlar (`github.com/…`) kalır — Arda'nın isteği.
+  üretip yüklemek gerekmez. Sayfa telefonda ~3200 px'ti → Deneyim, Projeler, Yetenekler
+  her genişlikte kapalı gelir (başlığa tıklayınca açılır). İlk PDF çözümü tarayıcının
+  yazdırma penceresiydi; Arda "A4 olarak göstermesin, butona basınca PDF insin" dedi →
+  sunucuda üretim seçildi (o anki iki seçenekten diğeri elle yüklenen PDF'ti, bu kararın
+  gerekçesine ters düşüyordu). Bedeli: yeni bağımlılık ve repoda OFL lisanslı statik font
+  dosyaları (`src/assets/fonts/`, ~700 KB; Türkçe harfler için statik TTF şart). PDF düzeni
+  sayfanın birebir kopyası değil, A4 ve beyaz kâğıt için ayrı. Kalemlerin "alt" satırındaki
+  tarihler gösterilmez, link gibi duranlar (`github.com/…`) kalır — Arda'nın isteği.
 
 - **Telefon numarası sitede ve repoda yer almaz; iletişim e-posta ve sosyal hesaplar üzerinden.**
   Gerekçe: Repo public; git geçmişine giren numara sonradan silinse de geçmişte kalır ve
