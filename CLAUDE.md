@@ -4,6 +4,14 @@
 **RektPortfol** — Arda'yı ve projelerini tanıtan, işverene gösterilecek kişisel portföy sitesi.
 Next.js + TypeScript, Postgres (Neon), Vercel Blob; yayın Vercel + custom domain. Ayrıntı `const.md`'de.
 
+## Next.js sürümü
+Proje Next.js 16 kullanıyor; API'leri, kuralları ve dosya yapısı eğitim verisinden farklı
+olabilir. Next.js kodu yazmadan önce ilgili rehberi `node_modules/next/dist/docs/` altından
+oku, deprecation uyarılarına uy.
+
+`next.config.ts`'de `agentRules: false` bilinçli: açık kalırsa `next dev` kendi kural
+bloğunu yalnızca `CLAUDE.md`'ye yazıp `AGENT.md` ile ayrıştırır.
+
 ## const.md — değişmez gerçekler
 Projedeki değişmez gerçekler `const.md`'de tutulur. Oradaki maddeler verili kabul
 edilir; bir kararı/gerçeği kontrol etmek gerektiğinde önce `const.md`'ye bakılır,

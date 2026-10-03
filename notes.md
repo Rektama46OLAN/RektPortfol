@@ -45,6 +45,11 @@ Faz uzun görünüyorsa ikiye böl; ilerleme ölçülemeyen faz faz değildir.
 | **3b** | Admin paneli: giriş + içerik düzenleme + Blob'a dosya yükleme | Girişsiz `/admin` girişe yönleniyor; panelden proje ekle/düzenle/sil, hakkımda düzenle, CV PDF'i yükle → ziyaretçi sayfasında görünüyor |
 | **4** | Yayın: custom domain, prod env değişkenleri | Site custom domain'de HTTPS ile açılıyor; prod'da admin girişi ve dosya yükleme çalışıyor |
 
+**Faz 0 notu:** `create-next-app` kendi `CLAUDE.md` (`@AGENTS.md`) ve `AGENTS.md`'sini
+üretiyor; `next dev` de bir AI ajanı algılayınca kural bloğunu `CLAUDE.md`'ye yazıyor
+(`AGENTS.md` yoksa). Bizde `AGENT.md` var, `AGENTS.md` yok → blok yalnız `CLAUDE.md`'ye
+girer, senkron bozulur. Çözüm: `agentRules: false` + aynı bilgi iki dosyaya elle.
+
 Faz 3 baştan ikiye bölündü: veri katmanı ile admin arayüzü ayrı ayrı test edilebilir, tek
 parça hâlinde "DB mi bozuk, form mu" ayrımı yapılamaz.
 
