@@ -35,10 +35,11 @@ diye tekrar tartışılır; asıl maliyet orada.
   Gerekçe: Arda'nın kararı (2026-10-03). Şablon tek sayfa + menü yapısında; ondan yalnızca
   stil alınır, sayfa yapısı alınmaz.
 
-- **Anasayfa (`/`) bir giriş kapısıdır: ad + künye + Dakay'la tanışma paneli, altında dört sayfaya giden kartlar (her kartta başka bir Dakay ifadesi).**
+- **Anasayfa (`/`) bir giriş kapısıdır: ad + künye tablosu + yanında el sallayan Dakay ve balonu (çerçevesiz), altında dört sayfaya giden kartlar (her kartta başka bir Dakay ifadesi).**
   Gerekçe: Ayrı sayfa kararından sonra anasayfaya bir görev gerekiyordu: kim olduğunu bir
   bakışta söylemek ve dört sayfaya yönlendirmek (Arda onayı, 2026-10-03). Biçimi tasarım
-  v3'te model sheet'in başlık bloğu + İFADELER bölümüne döndü (2026-10-03).
+  v3'te model sheet'in başlık bloğu + İFADELER bölümüne döndü; Dakay'ın etrafındaki "Tanışma"
+  paneli ve kılavuz çizgileri Arda'nın isteğiyle kaldırıldı (2026-10-03).
 
 - **CV bir PDF dosyası değildir; içeriği `/cv` sayfasına metin olarak yazılır. "PDF indir" butonu aynı sayfayı tarayıcının baskısıyla A4 PDF'e çevirir.**
   Gerekçe: Arda'nın kararı (2026-10-03, Faz 2 içeriği verilirken). Sayfa metni hem

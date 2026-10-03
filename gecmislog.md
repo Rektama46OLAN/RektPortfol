@@ -307,7 +307,7 @@ Yarım kalan işler buraya değil `gecmis.md`'ye yazılır.
     cloudflare-dns.com HTTPS çözücüleri ve Verisign RDAP ile kontrol edildi.
   - Vercel MCP aracı rekt10 ekibine 403 veriyor (yeniden yetki gerekir); CLI çalışıyor.
     www yönlendirmesi CLI'de yok → Arda panelden yaptı.
-  - neon `sql` şablonunda regex içindeki ters bölü düşüyor (`^Juniors+` → `^Juniors+`);
+  - neon `sql` şablonunda regex içindeki ters bölü düşüyor (`^Junior\s+` → `^Juniors+`);
     UPDATE hata vermeden hiçbir şey değiştirmedi → desen parametre olarak verildi. Ders:
     RETURNING çıktısını oku, "güncellendi" yazısı yetmez.
   - next/og ImageResponse Türkçe için statik font ister → paylaşım görseli geçici bir sayfadan
