@@ -125,6 +125,13 @@ diye tekrar tartışılır; asıl maliyet orada.
   Gerekçe: İlk karar "statik, hareket sonra"ydı. Nefes CSS ile bedava ve karakteri canlı
   gösteriyor; sahnedeki koreografi (zıplama, el sallama döngüsü) ayrı iş.
 
+- **Site simgesi (favicon) Dakay'ın kafasıdır: `favicon.ico` (16/32/48), `icon.png` (512, saydam), `apple-icon.png` (180, masa rengi zemin) — `src/app/` altında, `Dakay` bileşeninin `kirp="ikon"` kare kırpmasından üretilmiş sabit dosyalar.**
+  Gerekçe: Google aramasında sitenin yanında `create-next-app`'in varsayılan simgesi (Vercel
+  logosu) çıkıyordu; Arda üst bardaki Dakay kafasını istedi (2026-10-03). Üst bardaki yatay
+  kafa kırpması kare simgede üstte boşluk bırakıp 32 px'te yalnız gözlüğü gösterdiği için kare
+  `ikon` kırpması eklendi. Simgeler paylaşım görseli gibi bir kez ekran görüntüsüyle üretildi;
+  Dakay'ın çizimi değişirse yeniden üretilir.
+
 ### Yayın ve SEO
 
 - **Sitenin asıl adresi `https://ardakaya.com`; `www` ve `http` ona 308 ile yönlenir. Alan adı Metunic'te kayıtlı, DNS'i Vercel yönetir (ns1/ns2.vercel-dns.com).**

@@ -347,3 +347,18 @@ Yarım kalan işler buraya değil `gecmis.md`'ye yazılır.
   src/assets/fonts/*, src/app/(site)/cv/page.tsx, src/components/{KisiBilgisi,SiteHeader,
   SiteFooter}.tsx, src/app/(site)/layout.tsx, src/app/globals.css, next.config.ts,
   package.json, package-lock.json, const.md, gecmislog.md; PdfButonu.tsx silindi.
+
+## [2026-10-03] Site simgesi: Vercel logosu yerine Dakay — TAMAMLANDI
+- Ne yapıldı: Google aramasında sitenin yanında `create-next-app`'in varsayılan favicon'u
+  (Vercel logosu) çıkıyordu. Arda üst bardaki Dakay kafasını istedi. `Dakay`'a kare `kirp="ikon"`
+  (viewBox 40 34 140 140, kolsuz) eklendi; geçici bir sayfadan CDP ile saydam PNG'ler çekildi
+  (küçük boylar 8 kat büyük çizilip küçültüldü), 16/32/48 PNG'leri gömülü `favicon.ico` elle
+  birleştirildi (6 bayt başlık + 16 bayt dizin + PNG). `icon.png` 512 saydam, `apple-icon.png`
+  180 masa rengi zemin. Geçici sayfa silindi.
+- Bitiş kriteri: sayfada üç `<link rel="icon|apple-touch-icon">`, üçü de 200 ve doğru türde;
+  tsc + eslint + build temiz. Google simgeyi kendi taramasında günceller (günler–haftalar).
+- Yol boyunca çıkanlar: üst bardaki yatay kafa kırpması kare tuvalde üstte ~%30 boşluk
+  bırakıyor, 32 px'te yalnız gözlük okunuyordu → kare kırpma. Görev durdurulsa da Next süreçleri
+  yine yaşıyordu → PID ile kapatıldı.
+- Dokunulan dosyalar: src/app/{favicon.ico,icon.png,apple-icon.png}, src/components/Dakay.tsx,
+  const.md, gecmislog.md

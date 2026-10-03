@@ -99,8 +99,9 @@ type Props = {
   sag?: KolSag;
   // Gözlüğü alna itip üstünden bakar. Karakter notu: nadir olur — sayfa başına bir kez.
   gozlukIndi?: boolean;
-  // "kafa": yalnız baş (model sheet'teki ifade kartları gibi).
-  kirp?: "tam" | "kafa";
+  // "kafa": yalnız baş (model sheet'teki ifade kartları gibi). "ikon": kare — baş + gövdenin
+  // üstü, kolsuz; site simgesi (favicon) bundan üretildi.
+  kirp?: "tam" | "kafa" | "ikon";
   // Boş verilirse süs sayılır, ekran okuyucudan gizlenir (yanında zaten metin varken).
   etiket?: string;
 };
@@ -117,13 +118,13 @@ export default function Dakay({
   const id = useId().replace(/:/g, "");
   const e = IFADELER[ifade];
   const g = gozlukIndi ? "F" : "N";
-  const viewBox = kirp === "kafa" ? "38 30 144 100" : "0 20 220 272";
+  const viewBox = { tam: "0 20 220 272", kafa: "38 30 144 100", ikon: "40 34 140 140" }[kirp];
   return (
     <svg
       viewBox={viewBox}
       className={className}
-      // Tam boyda el sallayan kol kutunun dışına taşabilir; kafa kırpmasında taşma kırpılır.
-      overflow={kirp === "kafa" ? "hidden" : "visible"}
+      // Tam boyda el sallayan kol kutunun dışına taşabilir; kırpmalarda taşma kırpılır.
+      overflow={kirp === "tam" ? "visible" : "hidden"}
       {...(etiket ? { role: "img", "aria-label": etiket } : { "aria-hidden": true })}
     >
       <defs>
