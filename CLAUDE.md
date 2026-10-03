@@ -12,6 +12,17 @@ oku, deprecation uyarılarına uy.
 `next.config.ts`'de `agentRules: false` bilinçli: açık kalırsa `next dev` kendi kural
 bloğunu yalnızca `CLAUDE.md`'ye yazıp `AGENT.md` ile ayrıştırır.
 
+## Veritabanı
+Neon Postgres, Vercel'e bağlı (`neon-lime-diamond`). Bağlantı bilgisi yerelde `.env.local`'de
+(`npx vercel env pull .env.local`); bu dosya git'e girmez.
+
+- Şema değişikliği = `db/migrations/` altında **yeni numaralı** `.sql` dosyası, sonra
+  `npm run db:migrate`. Çalışmış bir migration dosyası değiştirilmez.
+- Sorgular `src/lib/icerik.ts`'de, düz SQL. Her okuma fonksiyonu `'use cache'` +
+  `cacheTag('icerik')` + `cacheLife('minutes')` taşır.
+- Cache Components açık: `new Date()`, `Math.random()` gibi değerler yalnız önbellekli
+  kapsamda kullanılabilir (bkz. `SiteFooter`).
+
 ## const.md — değişmez gerçekler
 Projedeki değişmez gerçekler `const.md`'de tutulur. Oradaki maddeler verili kabul
 edilir; bir kararı/gerçeği kontrol etmek gerektiğinde önce `const.md`'ye bakılır,

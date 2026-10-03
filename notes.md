@@ -41,7 +41,7 @@ Faz uzun görünüyorsa ikiye böl; ilerleme ölçülemeyen faz faz değildir.
 | **1** ✅ | Görsel iskelet: palet token'ları (siyah + 5 gri), font, üst bar + footer, **statik** Dakay SVG bileşeni, anasayfa hero'su | Siyah vurgu ve Dakay için kontrast kararı verilmiş; hero, Dakay ile birlikte 1440 px ve 375 px genişlikte ekran görüntüsünde taşma/çakışma olmadan görünüyor; Arda görüntüyü onaylıyor |
 | **2** ✅ | Ziyaretçi sayfaları, **sabit veriyle** (DB yok): `/hakkimda`, `/projeler`, `/cv`, `/iletisim` | Dört sayfa kendi URL'inde menüden açılıyor, CV sayfada metin olarak okunuyor, sosyal linkler doğru adrese gidiyor |
 | **2b** *(sonra)* | Dakay'a hafif hareket: nefes, hover'da ifade değişimi | Hareket ekranda çalışıyor; `prefers-reduced-motion` açıkken duruyor |
-| **3a** | Veri katmanı: Neon bağlantısı, şema, sayfalar DB'den okur | Sabit veri koddan silinmiş; DB'de bir satır elle değiştirilince sayfa değişiyor |
+| **3a** ✅ | Veri katmanı: Neon bağlantısı, şema, sayfalar DB'den okur | Sabit veri koddan silinmiş; DB'de bir satır elle değiştirilince sayfa değişiyor |
 | **3b** | Admin paneli: giriş + içerik düzenleme + Blob'a dosya yükleme | Girişsiz `/admin` girişe yönleniyor; panelden proje ekle/düzenle/sil, hakkımda ve CV'yi düzenle, proje görseli yükle → ziyaretçi sayfasında görünüyor |
 | **4** | Yayın: custom domain, prod env değişkenleri | Site custom domain'de HTTPS ile açılıyor; prod'da admin girişi ve dosya yükleme çalışıyor |
 

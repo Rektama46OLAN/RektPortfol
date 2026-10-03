@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import SayfaBasligi from "@/components/SayfaBasligi";
-import { projeler } from "@/lib/site";
+import { getProjeler } from "@/lib/icerik";
 
 export const metadata: Metadata = { title: "Projeler · RektPortfol" };
 
-export default function Projeler() {
+export default async function Projeler() {
+  const projeler = await getProjeler();
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-8 lg:py-20">
       <SayfaBasligi etiket="Projeler" baslik="Üzerinde çalıştığım işler" />
       <ul className="mt-12 grid gap-8 md:grid-cols-2">
         {projeler.map((p) => (
-          <li key={p.ad} className="flex flex-col overflow-hidden rounded-lg border border-iron bg-ink/40">
+          <li key={p.id} className="flex flex-col overflow-hidden rounded-lg border border-iron bg-ink/40">
             {p.gorseller.length > 0 && (
               <div className={`grid gap-px bg-iron ${p.gorseller.length > 1 ? "grid-cols-[minmax(0,3fr)_minmax(0,1fr)]" : ""}`}>
                 {p.gorseller.map((g, i) => (

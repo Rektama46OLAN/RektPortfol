@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import SayfaBasligi from "@/components/SayfaBasligi";
-import { sosyal } from "@/lib/site";
+import { getSosyalLinkler } from "@/lib/icerik";
 
 export const metadata: Metadata = { title: "İletişim · RektPortfol" };
 
 // const.md: form yok — ziyaretçi e-posta veya sosyal medyadan istediği gibi yazar.
-export default function Iletisim() {
+export default async function Iletisim() {
+  const sosyal = await getSosyalLinkler();
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-8 lg:py-20">
       <SayfaBasligi etiket="İletişim" baslik="Bana ulaş" />

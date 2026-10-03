@@ -1,36 +1,31 @@
 import Link from "next/link";
 import Dakay from "@/components/Dakay";
-import { sosyal } from "@/lib/site";
+import { getProfil, getSosyalLinkler } from "@/lib/icerik";
 
 // Tema koyu (const.md). Dakay ve siyah vurgu noir zeminde kaybolduğu için
 // Dakay'ın arkasında hale, butonda açık kenar var.
 
-const bloklar = [
-  {
-    baslik: "Hakkımda",
-    metin: "Muğla'da yaşayan, bilişim okuyan bir yazılımcıyım.",
-    href: "/hakkimda",
-    link: "Devamını oku",
-  },
-  {
-    baslik: "Projelerim",
-    metin: "Üzerinde çalıştığım işler, kullandığım teknolojilerle birlikte.",
-    href: "/projeler",
-    link: "Projelere göz at",
-  },
-];
-
-export default function Hero() {
+export default async function Hero() {
+  const [profil, sosyal] = await Promise.all([getProfil(), getSosyalLinkler()]);
+  const bloklar = [
+    { baslik: "Hakkımda", metin: profil.hakkimda_kisa, href: "/hakkimda", link: "Devamını oku" },
+    {
+      baslik: "Projelerim",
+      metin: "Üzerinde çalıştığım işler, kullandığım teknolojilerle birlikte.",
+      href: "/projeler",
+      link: "Projelere göz at",
+    },
+  ];
   return (
     <section className="bg-noir text-veil">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-12 sm:px-8 lg:grid-cols-[1fr_minmax(0,22rem)_14rem] lg:items-center lg:gap-8 lg:py-20">
         <div className="lg:relative lg:z-10">
           <span className="block h-1 w-16 bg-veil" aria-hidden />
           <h1 className="mt-6 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            Ben Arda
+            Ben {profil.kisa_ad}
           </h1>
           <p className="mt-5 max-w-sm text-silver">
-            Web siteleri, masaüstü uygulamaları ve Discord botları geliştiriyorum.
+            {profil.hero_metin}
           </p>
           <Link
             href="/hakkimda"

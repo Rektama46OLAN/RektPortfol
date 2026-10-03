@@ -122,3 +122,37 @@ Yarım kalan işler buraya değil `gecmis.md`'ye yazılır.
 - Dokunulan dosyalar: src/lib/site.ts, src/app/{hakkimda,projeler,cv,iletisim}/page.tsx,
   src/components/{SayfaBasligi,Hero}.tsx, public/projeler/*, const.md, notes.md,
   reports/faz2-sayfalar/*
+
+## [2026-10-03] LinkedIn linki doğrulaması — TAMAMLANDI
+- Ne yapıldı: Arda canlı sitede LinkedIn linkini tarayıcıda denedi, profil sorunsuz açıldı.
+- Yol boyunca çıkanlar: LinkedIn otomatik isteklere 999 döner; curl ile doğrulanamaz.
+- Dokunulan dosyalar: yok.
+
+## [2026-10-03] Faz 3a — Veri katmanı — TAMAMLANDI
+- Ne yapıldı: Neon kaynağı (`neon-lime-diamond`) `rektportfol`'a bağlandı (CLI: `vercel
+  integration resource connect`), env `.env.local`'e çekildi. Şema `001_ilk_sema.sql`
+  (profil, sosyal_linkler, projeler, proje_gorselleri, cv_kalemleri, cv_yetenekler),
+  içerik `002_ilk_icerik.sql`. Migration betiği `scripts/migrate.mjs` (`npm run db:migrate`,
+  dosya başına transaction, `schema_migrations`). Okuma `src/lib/icerik.ts` (düz SQL,
+  `'use cache'` + `cacheTag('icerik')` + `cacheLife('minutes')`), `cacheComponents: true`.
+  `site.ts`'de yalnız menü kaldı. Üç mimari karar Arda onayıyla const.md'de.
+  Bitiş kriteri: `profil.hero_metin` DB'de elle değiştirildi → hemen değil (önbellek), 65 sn
+  sonra sayfada göründü → geri alındı. Görsel regresyon: beş sayfa Faz 2 görüntüleriyle
+  piksel karşılaştırıldı, içerik/yerleşim aynı (fark: footer'da alt piksel yumuşatma, eski CV
+  görüntüsündeki dev "N" göstergesi, görsel yeniden ölçekleme).
+- Yol boyunca çıkanlar:
+  - Arda Neon'u Marketplace'ten kurmuştu ama projeye bağlı değildi (`vercel env ls` boş) →
+    `vercel integration list --all` ile kaynak bulundu, CLI'dan bağlandı.
+  - Neon HTTP modu (`neon()`) tek sorgu çalıştırır; çok ifadeli migration için `Pool`
+    (WebSocket). Node 22'de WebSocket yerleşik, `ws` paketi gerekmedi.
+  - Başlangıç SQL'i elle değil betikle üretildi (`site.ts` → Node 22 type stripping ile
+    import); metinlerdeki `'` ve `;` elle kaçışta hata riskiydi.
+  - `sql\`...\` as Promise<T[]>` TS2352 veriyor (NeonQueryPromise) → önce await, sonra cast.
+  - Cache Components'ta footer'daki `new Date()` → footer'ın kendisi `'use cache'` yapıldı.
+  - CV sayfası GitHub/LinkedIn'i etiketle `find(...)!` ile arıyordu; admin bir linki silerse
+    çökerdi → `mailto:` olmayan bütün linkler listeleniyor. Proje `key`'i ad → id.
+  - Piksel karşılaştırma betiği scratchpad'de `pikselfark.mjs` (CDP + OffscreenCanvas).
+- Dokunulan dosyalar: db/migrations/*, scripts/migrate.mjs, package.json (+db:migrate,
+  @neondatabase/serverless), next.config.ts, src/lib/{db,icerik,site}.ts,
+  src/components/{SiteHeader,SiteFooter,Hero}.tsx, src/app/*/page.tsx, const.md, notes.md,
+  CLAUDE.md, AGENT.md

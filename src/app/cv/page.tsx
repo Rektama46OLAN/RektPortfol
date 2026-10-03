@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import SayfaBasligi from "@/components/SayfaBasligi";
-import { cv, eposta, sosyal, type CvKalem } from "@/lib/site";
+import { getCv, getProfil, getSosyalLinkler, type CvKalem } from "@/lib/icerik";
 
 export const metadata: Metadata = { title: "CV · RektPortfol" };
 
@@ -17,7 +17,7 @@ function Kalemler({ kalemler }: { kalemler: CvKalem[] }) {
   return (
     <div className="space-y-8">
       {kalemler.map((k) => (
-        <article key={k.baslik}>
+        <article key={k.id}>
           <h3 className="text-lg font-semibold">{k.baslik}</h3>
           {k.alt && <p className="mt-1 text-sm text-fog">{k.alt}</p>}
           {k.teknolojiler && <p className="mt-1 text-sm text-silver">{k.teknolojiler}</p>}
@@ -32,29 +32,33 @@ function Kalemler({ kalemler }: { kalemler: CvKalem[] }) {
   );
 }
 
-export default function Cv() {
-  const github = sosyal.find((s) => s.etiket === "GitHub")!;
-  const linkedin = sosyal.find((s) => s.etiket === "LinkedIn")!;
+export default async function Cv() {
+  const [profil, sosyal, cv] = await Promise.all([getProfil(), getSosyalLinkler(), getCv()]);
+  // E-posta profilden gelir; sosyal listedeki mailto: kaydı tekrar olmasın diye atlanır.
+  const linkler = sosyal.filter((s) => !s.href.startsWith("mailto:"));
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-12 sm:px-8 lg:py-20">
-      <SayfaBasligi etiket="CV" baslik={cv.ad} />
-      <p className="mt-4 text-lg text-silver">{cv.unvan}</p>
-      <p className="mt-1 text-silver">{cv.konum}</p>
+      <SayfaBasligi etiket="CV" baslik={profil.ad} />
+      <p className="mt-4 text-lg text-silver">{profil.cv_unvan}</p>
+      <p className="mt-1 text-silver">{profil.cv_konum}</p>
       <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-silver">
         <li>
-          <a href={`mailto:${eposta}`} className="hover:text-veil">{eposta}</a>
+          <a href={`mailto:${profil.eposta}`} className="hover:text-veil">
+            {profil.eposta}
+          </a>
         </li>
-        <li>
-          <a href={github.href} className="hover:text-veil">{github.gorunen}</a>
-        </li>
-        <li>
-          <a href={linkedin.href} className="hover:text-veil">{linkedin.gorunen}</a>
-        </li>
+        {linkler.map((s) => (
+          <li key={s.href}>
+            <a href={s.href} className="hover:text-veil">
+              {s.gorunen}
+            </a>
+          </li>
+        ))}
       </ul>
 
       <div className="mt-12">
         <Bolum baslik="Hakkımda">
-          <p className="leading-relaxed text-silver">{cv.hakkimda}</p>
+          <p className="leading-relaxed text-silver">{profil.cv_hakkimda}</p>
         </Bolum>
         <Bolum baslik="Deneyim">
           <Kalemler kalemler={cv.deneyim} />
@@ -73,7 +77,7 @@ export default function Cv() {
           </dl>
         </Bolum>
         <Bolum baslik="Diller">
-          <p className="text-silver">{cv.diller}</p>
+          <p className="text-silver">{profil.cv_diller}</p>
         </Bolum>
       </div>
     </div>

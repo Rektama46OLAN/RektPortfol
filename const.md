@@ -117,6 +117,21 @@ diye tekrar tartışılır; asıl maliyet orada.
   yalnızca lokalde çalışıyor; Neon Vercel'e doğrudan bağlanıyor, bağlantı bilgisi env
   değişkeni olarak otomatik geliyor. Arda onayı: 2026-10-03.
 
+- **Veritabanına ORM'siz, düz SQL ile erişilir (`@neondatabase/serverless`).**
+  Gerekçe: Yedi küçük tablo için ORM (Drizzle/Prisma) ek kavram katmanı ve bağımlılık
+  getirir; düz SQL'de her sorgu açıkça görünür — Arda'nın backend öğrenme hedefine en
+  şeffaf yol. Arda onayı: 2026-10-03.
+
+- **Şema değişiklikleri `db/migrations/` altında numaralı SQL dosyalarıyla yapılır; hangilerinin çalıştığı veritabanındaki `schema_migrations` tablosunda tutulur.**
+  Gerekçe: Her değişiklik git'te okunur bir SQL dosyası olarak kalır; Neon panelinden elle
+  çalıştırmak yerel ve canlıyı ayrıştırırdı. Bir migration dosyası çalıştıktan sonra
+  değiştirilmez — düzeltme yeni numarayla gelir. Arda onayı: 2026-10-03.
+
+- **Sayfalar veriyi Next 16 Cache Components ile önbellekten okur (`'use cache'` + `cacheTag('icerik')` + `cacheLife('minutes')`); admin kaydedince etiket anında yenilenir.**
+  Gerekçe: Her ziyarette DB sorgusu hem yavaş hem Neon ücretsiz kotasını harcar; tamamen
+  statik sayfa ise admin değişikliğini göstermez. Önbellek en geç ~1 dakikada tazelenir,
+  Faz 3b'de admin işlemleri etiketi anında geçersiz kılar. Arda onayı: 2026-10-03.
+
 - **Yüklenen dosyalar (proje görselleri) Vercel Blob'da tutulur.**
   Gerekçe: Aynı kalıcılık duvarı — sunucuya yazılan dosya bir sonraki çağrıda yok olabilir.
   Blob Vercel'in kendi depolaması, ek hesap gerektirmiyor. Arda onayı: 2026-10-03.
