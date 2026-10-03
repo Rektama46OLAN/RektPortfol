@@ -11,13 +11,13 @@ export default async function AdminOzet() {
   const kartlar = [
     { href: "/admin/profil", baslik: "Profil", metin: "Ad, hero metni, hakkımda, e-posta ve CV başlığı" },
     { href: "/admin/linkler", baslik: "Linkler", metin: `${linkler} sosyal link` },
+    { href: "/admin/projeler", baslik: "Projeler", metin: `${projeler} proje ve görselleri` },
+    { href: "/admin/cv", baslik: "CV", metin: `${kalemler} kalem ve yetenekler` },
   ];
   return (
     <section>
       <h1 className="text-3xl font-semibold tracking-tight">Hoş geldin</h1>
-      <p className="mt-2 text-silver">
-        Sitede {projeler} proje, {kalemler} CV kalemi var. Projeler ve CV düzenleme Faz 3b-2&apos;de gelecek.
-      </p>
+      <p className="mt-2 text-silver">Düzenlemek istediğin bölümü seç. Kaydettiğin her şey sitede anında görünür.</p>
       <ul className="mt-8 grid gap-4 sm:grid-cols-2">
         {kartlar.map((k) => (
           <li key={k.href}>

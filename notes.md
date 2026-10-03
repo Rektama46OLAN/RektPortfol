@@ -43,7 +43,7 @@ Faz uzun görünüyorsa ikiye böl; ilerleme ölçülemeyen faz faz değildir.
 | **2b** *(sonra)* | Dakay'a hafif hareket: nefes, hover'da ifade değişimi | Hareket ekranda çalışıyor; `prefers-reduced-motion` açıkken duruyor |
 | **3a** ✅ | Veri katmanı: Neon bağlantısı, şema, sayfalar DB'den okur | Sabit veri koddan silinmiş; DB'de bir satır elle değiştirilince sayfa değişiyor |
 | **3b-1** ✅ | Admin: giriş + oturum + deneme sınırı, profil ve sosyal link düzenleme | Girişsiz `/admin/*` → `/admin/giris`; yanlış şifre 5 kez → 15 dk kilit; doğru şifre → panel; profil alanları ve linkler (ekle/düzenle/sil) kaydedilince ziyaretçi sayfasında **anında** görünüyor; çıkış oturumu kapatıyor |
-| **3b-2** | Admin: projeler + görsel yükleme (Blob) + CV kalemleri ve yetenekler | Panelden proje ekle/düzenle/sil, görsel yükle/sil, CV kalemi ve yetenek ekle/düzenle/sil → ziyaretçi sayfasında anında görünüyor |
+| **3b-2** ✅ | Admin: projeler + görsel yükleme (Blob) + CV kalemleri ve yetenekler | Panelden proje ekle/düzenle/sil, görsel yükle/sil, CV kalemi ve yetenek ekle/düzenle/sil → ziyaretçi sayfasında anında görünüyor |
 | **4** | Yayın: custom domain, prod env değişkenleri | Site custom domain'de HTTPS ile açılıyor; prod'da admin girişi ve dosya yükleme çalışıyor |
 
 **Faz 0 notu:** `create-next-app` kendi `CLAUDE.md` (`@AGENTS.md`) ve `AGENTS.md`'sini

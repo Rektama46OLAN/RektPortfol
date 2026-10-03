@@ -210,3 +210,42 @@ Yarım kalan işler buraya değil `gecmis.md`'ye yazılır.
     `--env-file-if-exists` dosya yoksa hata vermez.
 - Dokunulan dosyalar: package.json, scripts/migrate.mjs, .env.development.local (git dışı),
   const.md, notes.md, CLAUDE.md, AGENT.md, gecmis.md
+
+## [2026-10-03] Canlıda admin girişi — TAMAMLANDI
+- Ne yapıldı: `0e3d9ba` deploy'u sonrası Rekt yalnız okuma kontrolleri yaptı (sayfalar 200,
+  girişsiz/sahte çerezle /admin → 307 /admin/giris, noindex). Arda canlıda şifreyle girdi,
+  bir alanı değiştirdi, değişiklik canlı sitede göründü.
+- Yol boyunca çıkanlar: Canlıya yazma testini Rekt bilerek yapmadı (const.md: testler dev
+  dalında); canlı yazma doğrulaması site sahibine bırakıldı.
+- Dokunulan dosyalar: yok.
+
+## [2026-10-03] Faz 3b-2 — Admin: projeler, görseller, CV — TAMAMLANDI
+- Ne yapıldı: Blob deposu `rektportfol-gorseller` (public, iad1, `store_gcWo7xyTs7TPVjGv`)
+  CLI ile açılıp projeye bağlandı (`BLOB_READ_WRITE_TOKEN` 3 ortamda). `@vercel/blob`,
+  `image-size` eklendi (audit temiz). `src/lib/gorsel.ts` (tür/boyut kontrolü, ölçü okuma,
+  `dev/` klasörü), `src/lib/form.ts` (ortak form yardımcıları), `projeler-actions.ts`,
+  `cv-actions.ts`, `SilButonu` (onaylı silme; linkler de buna geçti). Sayfalar:
+  `/admin/projeler`, `/admin/projeler/[id]` (proje + görseller), `/admin/cv`.
+  `next.config`: `images.remotePatterns` yalnız kendi Blob alan adı, Server Action gövdesi
+  4,5 MB.
+  Bitiş kriteri: e2e (dev dalına bağlı `next dev`, betik dev olmayan DB'de durur) 29/29 —
+  proje ekle/düzenle/sil, `http://` link reddi ve kaydedilmemesi, txt ve 4,2 MB dosya reddi,
+  gerçek PNG yükleme (Blob `dev/projeler/`, 717x579 ölçü, next/image 200), alt metni düzenleme,
+  onayda vazgeçince silinmeme, görsel ve proje silinince Blob'dan da silinme, CV kalemi ve
+  yetenek ekle/düzenle/sil, sonda DB sayıları ve Blob sayısı başlangıçla aynı. 3b-1 testi
+  yeni silme butonuna uyarlanıp dev'de tekrar: 17/17.
+- Yol boyunca çıkanlar:
+  - İlk koşuda "http:// link reddedildi" **yanlışlıkla geçti**: test, yönlendirme bitmeden
+    "Yeni proje" formunu doldurdu, başka bir hata ("Ad ve açıklama dolu olmalı") yakalandı.
+    Sonuç satırları okunurken fark edildi; test doğru sayfada, doğru mesajı arayacak ve
+    DB'de linkin değişmediğini doğrulayacak şekilde düzeltildi. Ders: ✓ yetmez, ✓'nin yanındaki
+    kanıtı oku.
+  - Scratchpad'deki betik projenin paketlerini çözemez → `node_modules/.cache/` altına
+    kopyalanıp oradan çalıştırıldı (git dışı).
+  - `vercel blob create-store` `.env.local`'i yeniden yazdı; `.env.development.local`
+    etkilenmedi (dev dalı ayarı korundu).
+  - Next 16'da `serverActions.bodySizeLimit` hâlâ `experimental` altında.
+  - Next dev süreci TaskStop/kapatma sonrası "failed exit 127" bildirimi verir — beklenen.
+- Dokunulan dosyalar: next.config.ts, package.json, src/lib/{form,gorsel}.ts,
+  src/app/admin/{actions,projeler-actions,cv-actions}.ts, src/app/admin/(panel)/** ,
+  src/components/admin/SilButonu.tsx, CLAUDE.md, AGENT.md, notes.md

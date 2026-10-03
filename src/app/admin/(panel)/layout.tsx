@@ -5,6 +5,8 @@ const menu = [
   { href: "/admin", etiket: "Özet" },
   { href: "/admin/profil", etiket: "Profil" },
   { href: "/admin/linkler", etiket: "Linkler" },
+  { href: "/admin/projeler", etiket: "Projeler" },
+  { href: "/admin/cv", etiket: "CV" },
 ];
 
 export default function PanelLayout({ children }: LayoutProps<"/admin">) {

@@ -37,6 +37,12 @@ Neon Postgres, Vercel'e bağlı (`neon-lime-diamond`, proje `orange-haze-4925469
 sayfası ve Server Action ilk iş `adminGerekli()` çağırır; `src/proxy.ts` yalnız ön kontrol.
 İçerik değiştiren her action sonunda `updateTag(ICERIK_ETIKETI)`.
 
+- Görseller Vercel Blob'da (`rektportfol-gorseller`, public). Canlıdan yüklenenler
+  `projeler/`, yerelden/preview'dan yüklenenler `dev/projeler/` altına gider
+  (`src/lib/gorsel.ts`). Sınır 4 MB (Vercel istek sınırı 4,5 MB). Silinen görsel Blob'dan da
+  silinir; `public/projeler/` altındaki ilk görseller repoda kalır.
+- Yeni bir Blob alan adı gerekirse `next.config.ts` → `images.remotePatterns`'e eklenir.
+
 ## const.md — değişmez gerçekler
 Projedeki değişmez gerçekler `const.md`'de tutulur. Oradaki maddeler verili kabul
 edilir; bir kararı/gerçeği kontrol etmek gerektiğinde önce `const.md`'ye bakılır,

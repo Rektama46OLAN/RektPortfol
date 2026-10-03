@@ -6,6 +6,7 @@ import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { adminGerekli } from "@/lib/admin";
 import { sql } from "@/lib/db";
+import { hataIle, linkGecerliMi, metin, paragraflar } from "@/lib/form";
 import { ICERIK_ETIKETI } from "@/lib/icerik";
 import {
   DENEME_SINIRI,
@@ -57,29 +58,6 @@ export async function girisYap(_onceki: GirisDurumu, form: FormData): Promise<Gi
 export async function cikisYap() {
   (await cookies()).delete(OTURUM_CEREZI);
   redirect("/admin/giris");
-}
-
-
-// ---------- yardımcılar ----------
-
-function metin(form: FormData, alan: string) {
-  return String(form.get(alan) ?? "").trim();
-}
-
-// Boş satırla ayrılmış paragraflar → dizi.
-function paragraflar(form: FormData, alan: string) {
-  return metin(form, alan)
-    .split(/\r?\n\s*\r?\n/)
-    .map((p) => p.replace(/\s*\r?\n\s*/g, " ").trim())
-    .filter(Boolean);
-}
-
-function hataIle(yol: string, mesaj: string): never {
-  redirect(`${yol}?hata=${encodeURIComponent(mesaj)}`);
-}
-
-function linkGecerliMi(href: string) {
-  return /^https:\/\/\S+$/.test(href) || /^mailto:[^\s@]+@[^\s@]+$/.test(href);
 }
 
 // ---------- profil ----------

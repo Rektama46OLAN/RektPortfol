@@ -1,4 +1,5 @@
 import { Alan, Bildirim, Kaydet } from "@/components/admin/Form";
+import SilButonu from "@/components/admin/SilButonu";
 import { adminGerekli } from "@/lib/admin";
 import { sql } from "@/lib/db";
 import { linkEkle, linkGuncelle, linkSil } from "../../actions";
@@ -35,13 +36,7 @@ export default async function AdminLinkler({ searchParams }: PageProps<"/admin/l
               <LinkAlanlari l={l} />
               <div className="flex items-center gap-4">
                 <Kaydet />
-                <button
-                  formAction={linkSil}
-                  className="text-sm text-fog hover:text-veil"
-                  aria-label={`${l.etiket} linkini sil`}
-                >
-                  Sil
-                </button>
+                <SilButonu action={linkSil} soru={`"${l.etiket}" linki silinsin mi?`} />
               </div>
             </form>
           </li>
