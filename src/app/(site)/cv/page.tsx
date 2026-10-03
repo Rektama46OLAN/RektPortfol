@@ -5,7 +5,7 @@ import PdfButonu from "@/components/PdfButonu";
 import { getCv, getProfil, getSosyalLinkler, type CvKalem } from "@/lib/icerik";
 import { dakayDer } from "@/lib/site";
 
-export const metadata: Metadata = { title: "CV · RektPortfol" };
+export const metadata: Metadata = { title: "CV" };
 
 // CV masanın üstünde duran bir kâğıt: model sheet'in başlık bloğu + künye tablosu,
 // bölüm başlıkları dar afiş harfle. Dakay kâğıdın kenarından gözlüğünü indirip okur.

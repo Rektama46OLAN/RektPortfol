@@ -6,7 +6,7 @@ import SayfaBasligi from "@/components/SayfaBasligi";
 import { getProfil } from "@/lib/icerik";
 import { dakayDer } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Hakkımda · RektPortfol" };
+export const metadata: Metadata = { title: "Hakkımda" };
 
 export default async function Hakkimda() {
   const profil = await getProfil();

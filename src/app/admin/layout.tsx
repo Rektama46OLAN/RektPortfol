@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Yönetim · RektPortfol",
+  title: "Yönetim",
   robots: { index: false, follow: false },
 };
 

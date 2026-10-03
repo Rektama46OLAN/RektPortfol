@@ -7,7 +7,7 @@ import SayfaBasligi from "@/components/SayfaBasligi";
 import { getProjeler } from "@/lib/icerik";
 import { dakayDer } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Projeler · RektPortfol" };
+export const metadata: Metadata = { title: "Projeler" };
 
 // Her proje model sheet'te bir panel: üstte "PROJE 01" + ad, içeride görsel çerçevesi ve
 // metin; geniş ekranda görsel bir solda bir sağda. Görseli olmayan projede Dakay durur.

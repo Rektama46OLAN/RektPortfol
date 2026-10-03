@@ -16,9 +16,11 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
+// Sitenin adı tek yerde; sayfalar yalnız kendi adını verir, şablon "CV · Arda Kaya" yapar.
 export const metadata: Metadata = {
-  title: "RektPortfol",
-  description: "Arda'nın kişisel portföyü",
+  metadataBase: new URL("https://ardakaya.com"),
+  title: { default: "Arda Kaya", template: "%s · Arda Kaya" },
+  description: "Arda Kaya'nın kişisel portföyü: projeler, CV ve iletişim.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
