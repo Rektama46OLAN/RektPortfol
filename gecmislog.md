@@ -156,3 +156,57 @@ Yarım kalan işler buraya değil `gecmis.md`'ye yazılır.
   @neondatabase/serverless), next.config.ts, src/lib/{db,icerik,site}.ts,
   src/components/{SiteHeader,SiteFooter,Hero}.tsx, src/app/*/page.tsx, const.md, notes.md,
   CLAUDE.md, AGENT.md
+
+## [2026-10-03] Faz 3b-1 — Admin: giriş, profil, linkler — TAMAMLANDI
+- Ne yapıldı: Faz 3b, 3b-1 / 3b-2 olarak bölündü. Ziyaretçi sayfaları `(site)` rota grubuna
+  taşındı (URL'ler aynı) ki admin kendi düzenini alsın. `src/proxy.ts` (ön kontrol),
+  `src/lib/oturum.ts` (HMAC imzalı çerez, şifreden türetilmiş anahtar, sabit süreli
+  karşılaştırma), `src/lib/admin.ts` (`adminGerekli()` — her sayfa ve action'da),
+  `003_giris_denemeleri.sql` (IP başına 15 dk'da 5 deneme). Sayfalar: `/admin/giris`,
+  `/admin`, `/admin/profil`, `/admin/linkler`; action'lar `src/app/admin/actions.ts`,
+  her değişiklikten sonra `updateTag('icerik')`.
+  Bitiş kriteri: uçtan uca tarayıcı testi (headless Chrome + CDP, production sunucusu)
+  17/17 — girişsiz yönlendirme (3 yol), doğru şifre, çerez HttpOnly/Lax/Secure, profil
+  kaydı anasayfada anında, geri yükleme, boş alan hatası, link ekle/sil anında, `javascript:`
+  adresi reddi, çıkış, 5 yanlışta kilit, kilitliyken doğru şifre reddi. Test verisi ve
+  kilit kayıtları temizlendi.
+- Yol boyunca çıkanlar:
+  - Arda ilk şifre olarak 4 haneli sayı verdi → 10.000 olasılık, açık panelde brute-force'a
+    açık; uzun şifre önerildi, Arda 32 karakterlik şifreyi Vercel paneline kendisi girdi
+    (değer sohbete/dosyaya hiç düşmedi; Rekt yalnız uzunluğu kontrol etti).
+  - Next 16: Middleware → `proxy.ts`, varsayılan Node.js runtime → `node:crypto` kullanılabildi.
+  - Cache Components: çerez okuyan admin sayfaları Suspense içinde olmalı → admin layout'u
+    `{children}`'ı `<Suspense>`'e sarıyor; admin okuması önbelleksiz (`sql` doğrudan).
+  - `updateTag` yalnız Server Action'da çağrılabilir (Route Handler'da `revalidateTag`).
+  - Yardımcı `oturumVarMi` yanlışlıkla `"use server"` dosyasındaydı → dışarıdan çağrılabilen
+    endpoint olurdu; `src/lib/admin.ts`'ye taşındı.
+  - Bulgu: yerel ve canlı **aynı Neon veritabanı** → test yazımı canlıya gider. CLAUDE.md'ye
+    uyarı; Neon dev dalı önerisi notes.md'de.
+  - E2E testinde "geri yüklendi" kontrolü ilk koşuda kaldı: test, alanı kendisi doldurduğu
+    için bekleme koşulu anında doğru çıktı → anasayfa yanıtını yoklayacak şekilde düzeltildi;
+    uygulamada hata yoktu (DB ve sayfa doğruydu).
+  - Test betikleri scratchpad'de: `e2e-admin.mjs` (şifreyi env'den okur, yazdırmaz).
+- Dokunulan dosyalar: src/app/(site)/*, src/app/layout.tsx, src/app/admin/**,
+  src/components/admin/Form.tsx, src/lib/{oturum,admin}.ts, src/proxy.ts,
+  db/migrations/003_giris_denemeleri.sql, notes.md, CLAUDE.md, AGENT.md
+
+## [2026-10-03] Neon dev dalı — TAMAMLANDI
+- Ne yapıldı: Arda 3b-1 kararlarını (oturum, deneme sınırı, dev dalı) onayladı → const.md.
+  `neonctl` (Vercel: Rekt org'una zaten yetkili) ile `main`'den `dev` dalı açıldı;
+  bağlantı adresleri `.env.development.local`'e (git dışı, ekrana basılmadan). Scriptler:
+  `db:migrate` → dev, `db:migrate:canli` → main; betik hedef sunucuyu yazıyor.
+  Doğrulama: dev dalına "DEV-DALI isareti" yazıldı → `next dev`'de göründü, canlı sitede ve
+  canlı DB'de görünmedi → işaret silindi.
+- Yol boyunca çıkanlar:
+  - Arda için başlatılan `npm run dev` görevi TaskStop ile durdurulmuştu ama Next süreci
+    (PID 21040) yaşamaya devam etmişti — ve `.env.development.local`'den önce başladığı için
+    canlı DB'ye bağlıydı. Yeni `next dev` "Another next dev server is already running" ile
+    çıktı, bekleyen komut 180 sn'de zaman aşımına düştü. Çözüm: proje yolundaki bütün `next`
+    node süreçleri kapatıldı, temiz sunucu açıldı. Ders: TaskStop arka plan kabuğunu durdurur,
+    torun süreçleri garanti değil — port/PID ile kontrol et.
+  - `next start` yalnız `.env.local` okur → canlı DB. Yazma testleri `next dev`'e karşı yapılır
+    (CLAUDE.md'ye kural).
+  - Node `--env-file` birden fazla verilince sonraki dosya öncekini ezer;
+    `--env-file-if-exists` dosya yoksa hata vermez.
+- Dokunulan dosyalar: package.json, scripts/migrate.mjs, .env.development.local (git dışı),
+  const.md, notes.md, CLAUDE.md, AGENT.md, gecmis.md

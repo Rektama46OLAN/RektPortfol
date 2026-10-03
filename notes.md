@@ -42,13 +42,16 @@ Faz uzun görünüyorsa ikiye böl; ilerleme ölçülemeyen faz faz değildir.
 | **2** ✅ | Ziyaretçi sayfaları, **sabit veriyle** (DB yok): `/hakkimda`, `/projeler`, `/cv`, `/iletisim` | Dört sayfa kendi URL'inde menüden açılıyor, CV sayfada metin olarak okunuyor, sosyal linkler doğru adrese gidiyor |
 | **2b** *(sonra)* | Dakay'a hafif hareket: nefes, hover'da ifade değişimi | Hareket ekranda çalışıyor; `prefers-reduced-motion` açıkken duruyor |
 | **3a** ✅ | Veri katmanı: Neon bağlantısı, şema, sayfalar DB'den okur | Sabit veri koddan silinmiş; DB'de bir satır elle değiştirilince sayfa değişiyor |
-| **3b** | Admin paneli: giriş + içerik düzenleme + Blob'a dosya yükleme | Girişsiz `/admin` girişe yönleniyor; panelden proje ekle/düzenle/sil, hakkımda ve CV'yi düzenle, proje görseli yükle → ziyaretçi sayfasında görünüyor |
+| **3b-1** ✅ | Admin: giriş + oturum + deneme sınırı, profil ve sosyal link düzenleme | Girişsiz `/admin/*` → `/admin/giris`; yanlış şifre 5 kez → 15 dk kilit; doğru şifre → panel; profil alanları ve linkler (ekle/düzenle/sil) kaydedilince ziyaretçi sayfasında **anında** görünüyor; çıkış oturumu kapatıyor |
+| **3b-2** | Admin: projeler + görsel yükleme (Blob) + CV kalemleri ve yetenekler | Panelden proje ekle/düzenle/sil, görsel yükle/sil, CV kalemi ve yetenek ekle/düzenle/sil → ziyaretçi sayfasında anında görünüyor |
 | **4** | Yayın: custom domain, prod env değişkenleri | Site custom domain'de HTTPS ile açılıyor; prod'da admin girişi ve dosya yükleme çalışıyor |
 
 **Faz 0 notu:** `create-next-app` kendi `CLAUDE.md` (`@AGENTS.md`) ve `AGENTS.md`'sini
 üretiyor; `next dev` de bir AI ajanı algılayınca kural bloğunu `CLAUDE.md`'ye yazıyor
 (`AGENTS.md` yoksa). Bizde `AGENT.md` var, `AGENTS.md` yok → blok yalnız `CLAUDE.md`'ye
 girer, senkron bozulur. Çözüm: `agentRules: false` + aynı bilgi iki dosyaya elle.
+
+Faz 3b de (2026-10-03) ikiye bölündü: giriş/oturum güvenliği tek başına test edilmeli; beş düzenleme ekranı + dosya yükleme tek parçada ölçülemezdi.
 
 Faz 3 baştan ikiye bölündü: veri katmanı ile admin arayüzü ayrı ayrı test edilebilir, tek
 parça hâlinde "DB mi bozuk, form mu" ayrımı yapılamaz.
@@ -105,6 +108,10 @@ gri hale/spot ışığı (şablondaki adamın arkası da hafif aydınlık), ya d
   (`#E0E0E0`) — siyah vurgu da Dakay da doğal olarak öne çıkar, ama şablonun koyu havası
   değişir. Karar ekran görüntüleri üzerinden Arda'yla.
 - ~~Anasayfa (`/`)~~ → onaylandı, const.md (2026-10-03).
+
+## Onay bekleyen kararlar
+
+_(yok — Faz 3b-1 kararları 2026-10-03'te onaylandı, const.md'de: oturum, deneme sınırı, Neon dev dalı.)_
 
 ## Fikirler
 

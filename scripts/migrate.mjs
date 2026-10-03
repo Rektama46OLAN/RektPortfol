@@ -1,4 +1,5 @@
-// Kullanım: npm run db:migrate
+// Kullanım: npm run db:migrate        → Neon "dev" dalı (.env.development.local)
+//           npm run db:migrate:canli  → canlı "main" dalı (.env.local)
 // db/migrations/*.sql dosyalarını ad sırasıyla çalıştırır; çalışanları schema_migrations'a
 // yazar, bir dahaki sefere atlar. Her dosya kendi transaction'ında: yarıda kalırsa geri alınır.
 import { readdirSync, readFileSync } from "node:fs";
@@ -10,6 +11,8 @@ if (!url) {
   console.error("DATABASE_URL yok. Önce: npx vercel env pull .env.local");
   process.exit(1);
 }
+
+console.log(`Hedef: ${new URL(url).hostname.split(".")[0]}`);
 
 const klasor = join(import.meta.dirname, "..", "db", "migrations");
 const pool = new Pool({ connectionString: url });

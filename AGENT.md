@@ -13,15 +13,29 @@ oku, deprecation uyarılarına uy.
 bloğunu yalnızca `CLAUDE.md`'ye yazıp `AGENT.md` ile ayrıştırır.
 
 ## Veritabanı
-Neon Postgres, Vercel'e bağlı (`neon-lime-diamond`). Bağlantı bilgisi yerelde `.env.local`'de
-(`npx vercel env pull .env.local`); bu dosya git'e girmez.
+Neon Postgres, Vercel'e bağlı (`neon-lime-diamond`, proje `orange-haze-49254692`). İki dal:
 
-- Şema değişikliği = `db/migrations/` altında **yeni numaralı** `.sql` dosyası, sonra
-  `npm run db:migrate`. Çalışmış bir migration dosyası değiştirilmez.
+| Dal | Kim kullanır | Env dosyası |
+|---|---|---|
+| `main` | Canlı site (Vercel), `next build`, `next start` | `.env.local` (`npx vercel env pull .env.local`) |
+| `dev` | `npm run dev`, `npm run db:migrate` | `.env.development.local` (`.env.local`'in üstüne yazar) |
+
+İkisi de git'e girmez. `vercel env pull` yalnız `.env.local`'i ezer, dev ayarı korunur.
+
+- Şema değişikliği = `db/migrations/` altında **yeni numaralı** `.sql` dosyası →
+  `npm run db:migrate` (dev) → test → **`npm run db:migrate:canli`** (main). Betik her
+  çalışmada hedef sunucuyu yazar. Çalışmış bir migration dosyası değiştirilmez.
+- ⚠ Test ve deneme yazımları **yalnız dev dalına**: `npm run dev` ile çalış. `next start`
+  canlı veritabanına bağlanır; yazma testi onunla yapılmaz.
 - Sorgular `src/lib/icerik.ts`'de, düz SQL. Her okuma fonksiyonu `'use cache'` +
   `cacheTag('icerik')` + `cacheLife('minutes')` taşır.
 - Cache Components açık: `new Date()`, `Math.random()` gibi değerler yalnız önbellekli
   kapsamda kullanılabilir (bkz. `SiteFooter`).
+
+## Admin paneli
+`/admin` — giriş `ADMIN_SIFRE` (Vercel env, değeri hiçbir dosyaya yazılmaz). Her admin
+sayfası ve Server Action ilk iş `adminGerekli()` çağırır; `src/proxy.ts` yalnız ön kontrol.
+İçerik değiştiren her action sonunda `updateTag(ICERIK_ETIKETI)`.
 
 ## const.md — değişmez gerçekler
 Projedeki değişmez gerçekler `const.md`'de tutulur. Oradaki maddeler verili kabul

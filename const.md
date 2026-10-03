@@ -132,10 +132,28 @@ diye tekrar tartışılır; asıl maliyet orada.
   statik sayfa ise admin değişikliğini göstermez. Önbellek en geç ~1 dakikada tazelenir,
   Faz 3b'de admin işlemleri etiketi anında geçersiz kılar. Arda onayı: 2026-10-03.
 
+- **Yerel geliştirme Neon'un `dev` dalını, canlı site `main` dalını kullanır; migration önce dev'e (`db:migrate`), sonra canlıya (`db:migrate:canli`) uygulanır.**
+  Gerekçe: Faz 3b-1 e2e testinde yerel ve canlının aynı veritabanını kullandığı görüldü —
+  test metni birkaç saniye canlı veritabanında durdu. Dev dalı `main`'in kopyası olarak
+  açıldı; `.env.development.local` yalnız `next dev` ve `db:migrate`'e girer. Ayrım
+  doğrulandı: dev dalına yazılan işaret yerel sunucuda göründü, canlıda görünmedi.
+  Arda onayı: 2026-10-03.
+
 - **Yüklenen dosyalar (proje görselleri) Vercel Blob'da tutulur.**
   Gerekçe: Aynı kalıcılık duvarı — sunucuya yazılan dosya bir sonraki çağrıda yok olabilir.
   Blob Vercel'in kendi depolaması, ek hesap gerektirmiyor. Arda onayı: 2026-10-03.
   (İlk hâlinde "CV PDF'i" de vardı; CV PDF olmaktan çıkınca düştü, aşağıya bkz.)
+
+- **Admin oturumu HMAC imzalı bir çerezdir (`admin_oturum` = `<bitiş>.<imza>`, 7 gün, HttpOnly + SameSite=Lax + canlıda Secure); imza anahtarı `ADMIN_SIFRE`'den türetilir.**
+  Gerekçe: Tek kullanıcı için oturum tablosu ya da iron-session gibi ek kütüphane gereksiz;
+  ek env değişkeni de istemiyor. Anahtar şifreden türediği için şifre değişince bütün açık
+  oturumlar kendiliğinden düşer. Faz 3b-1 e2e testinde çerez bayrakları doğrulandı.
+  Arda onayı: 2026-10-03.
+
+- **Girişte deneme sınırı: bir IP'den 15 dakikada 5 başarısız deneme → o IP kilitlenir, doğru şifre de reddedilir. Sayaç `giris_denemeleri` tablosunda.**
+  Gerekçe: Panel internete açık; Arda'nın ilk önerdiği şifre 4 haneliydi (10.000 olasılık).
+  Şifre 32 karaktere çıktı ama sınır, şifreden bağımsız ikinci katman. Serverless'ta bellek
+  örnekler arasında paylaşılmadığı için sayaç veritabanında. Arda onayı: 2026-10-03.
 
 - **Admin girişi tek kullanıcılıdır; şifre env değişkeninde durur, kullanıcı tablosu ve OAuth yoktur.**
   Gerekçe: Panele yalnızca Arda girecek. Kullanıcı yönetimi, kayıt, rol sistemi bu ihtiyaç
