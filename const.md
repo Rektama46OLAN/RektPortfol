@@ -122,6 +122,29 @@ diye tekrar tartışılır; asıl maliyet orada.
   Gerekçe: İlk karar "statik, hareket sonra"ydı. Nefes CSS ile bedava ve karakteri canlı
   gösteriyor; sahnedeki koreografi (zıplama, el sallama döngüsü) ayrı iş.
 
+### Yayın ve SEO
+
+- **Sitenin asıl adresi `https://ardakaya.com`; `www` ve `http` ona 308 ile yönlenir. Alan adı Metunic'te kayıtlı, DNS'i Vercel yönetir (ns1/ns2.vercel-dns.com).**
+  Gerekçe: Arda'nın kararları (2026-10-03). Kısa adres CV'ye ve LinkedIn'e yazmaya uygun.
+  DNS Vercel'e taşındı çünkü Metunic'te bölge açılmamıştı (ad sunucuları REFUSED dönüyordu)
+  ve Vercel'de kayıtlar CLI'den yönetilebiliyor. Search Console doğrulama TXT kaydı da orada.
+
+- **Her ziyaretçi sayfası kanonik adresini (`ardakaya.com/...`) ve kendi açıklamasını bildirir; anasayfa schema.org `Person` + `WebSite` (JSON-LD) taşır; `sitemap.xml` ve `robots.txt` (`/admin` kapalı) koddan üretilir.**
+  Gerekçe: Hedef "Arda Kaya" aramasında Google'ın siteyi Arda'ya bağlaması (Arda, 2026-10-03).
+  Site `rektportfol.vercel.app`'te de açıldığı için kanonik adres kopyaların gücü bölmesini
+  önler. `Person.sameAs` panelden gelen GitHub/LinkedIn linkleridir; e-posta JSON-LD'ye
+  bilerek konmadı.
+
+- **Unvan yalnız panelde, tek yerde durur (profil → CV unvanı); site açıklaması, Hakkımda açıklaması ve kişi bilgisindeki iş unvanı ondan türetilir (`kisaUnvan`). Unvanda "Junior" yoktur: "Yazılım Geliştirici".**
+  Gerekçe: Arda "Junior"ı her yerden kaldırmak ve bir daha uğraşmamak istedi (2026-10-03).
+  İlk SEO sürümünde açıklamalar unvanı koda elle yazıyordu — unvan değişince iki yeri daha
+  düzeltmek gerekirdi. Tek istisna paylaşım görseli: sabit PNG, unvan değişirse yeniden üretilir.
+
+- **Paylaşım görseli (`src/app/opengraph-image.png`, 1200×630) sabit bir PNG'dir; sitenin kendi bileşenleriyle çizilip ekran görüntüsü alınmıştır.**
+  Gerekçe: Next'in `ImageResponse`'u Türkçe karakter için statik bir TTF/WOFF ister; bunun
+  için yeni font paketi ya da dış indirme gerekirdi. Sabit PNG yeni bağımlılık getirmiyor.
+  Bedeli: ad ya da unvan panelden değişirse görsel elle yeniden üretilir.
+
 ### Mimari
 
 - **Veritabanı Postgres'tir (Neon, Vercel Marketplace üzerinden bağlanır).**

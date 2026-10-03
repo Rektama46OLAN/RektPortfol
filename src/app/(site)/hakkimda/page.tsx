@@ -6,7 +6,14 @@ import SayfaBasligi from "@/components/SayfaBasligi";
 import { getProfil } from "@/lib/icerik";
 import { dakayDer } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Hakkımda" };
+export async function generateMetadata(): Promise<Metadata> {
+  const profil = await getProfil();
+  return {
+    title: "Hakkımda",
+    description: `${profil.ad} kimdir: ${profil.hakkimda_kisa}`,
+    alternates: { canonical: "/hakkimda" },
+  };
+}
 
 export default async function Hakkimda() {
   const profil = await getProfil();

@@ -46,7 +46,7 @@ Faz uzun görünüyorsa ikiye böl; ilerleme ölçülemeyen faz faz değildir.
 | **3b-2** ✅ | Admin: projeler + görsel yükleme (Blob) + CV kalemleri ve yetenekler | Panelden proje ekle/düzenle/sil, görsel yükle/sil, CV kalemi ve yetenek ekle/düzenle/sil → ziyaretçi sayfasında anında görünüyor |
 | **3c** | Yeniden tasarım (v3, "Dakay'ın karakter dosyası"): model sheet dili, parametrik Dakay (ifade + poz), konuşma balonları, 404 (bkz. *Tasarım v3*) | Beş sayfa + 404'ün 1440 ve 375 px ekran görüntüsü `reports/tasarim-v3/`'te; taşma/çakışma yok; admin paneli eski koyu hâliyle açılıyor; Arda görüntüleri onaylıyor |
 | ~~**3d**~~ | ~~Dakay pozları~~ → 3c'ye katıldı: ArdaOS'taki rig 7 ifade ve kol pozlarını zaten taşıyordu | — |
-| **4** | Yayın: custom domain, prod env değişkenleri | Site custom domain'de HTTPS ile açılıyor; prod'da admin girişi ve dosya yükleme çalışıyor |
+| **4** | Yayın: custom domain (ardakaya.com, DNS Vercel'de), prod env değişkenleri, SEO (JSON-LD, sitemap, robots, kanonik, paylaşım görseli) | Site custom domain'de HTTPS ile açılıyor; prod'da admin girişi ve dosya yükleme çalışıyor |
 
 **Faz 0 notu:** `create-next-app` kendi `CLAUDE.md` (`@AGENTS.md`) ve `AGENTS.md`'sini
 üretiyor; `next dev` de bir AI ajanı algılayınca kural bloğunu `CLAUDE.md`'ye yazıyor
@@ -126,7 +126,7 @@ tek sert vurgu; (3) koyu zemin + sıcak ışık (bugünküne en yakın, en "şab
 - İletişim: her satır dev dar yazı (GITHUB…), hover'da turuncu + ok kayar.
 - Footer: aynı, hover turuncu.
 
-**Bilinçli olarak yok:** rakam şeridi ("6+ yıl, 80+ proje") — uydurma rakam junior profilde
+**Bilinçli olarak yok:** rakam şeridi ("6+ yıl, 80+ proje") — uydurma rakam kariyerin başındaki bir profilde
 ters teper. Admin ve DB'ye dokunulmaz; 3c tamamen görsel.
 
 ## Tasarım v3 (2026-10-03) — "Dakay'ın karakter dosyası"

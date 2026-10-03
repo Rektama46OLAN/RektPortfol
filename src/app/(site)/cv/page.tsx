@@ -5,7 +5,11 @@ import PdfButonu from "@/components/PdfButonu";
 import { getCv, getProfil, getSosyalLinkler, type CvKalem } from "@/lib/icerik";
 import { dakayDer } from "@/lib/site";
 
-export const metadata: Metadata = { title: "CV" };
+export const metadata: Metadata = {
+  title: "CV",
+  description: "Arda Kaya özgeçmişi: deneyim, projeler, yetenekler ve diller. PDF olarak indirilebilir.",
+  alternates: { canonical: "/cv" },
+};
 
 // CV masanın üstünde duran bir kâğıt: model sheet'in başlık bloğu + künye tablosu,
 // bölüm başlıkları dar afiş harfle. Dakay kâğıdın kenarından gözlüğünü indirip okur.

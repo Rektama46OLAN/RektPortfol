@@ -7,7 +7,11 @@ import SayfaBasligi from "@/components/SayfaBasligi";
 import { getProjeler } from "@/lib/icerik";
 import { dakayDer } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Projeler" };
+export const metadata: Metadata = {
+  title: "Projeler",
+  description: "Arda Kaya'nın projeleri: masaüstü uygulamalar, Discord botları, makine öğrenmesi ve web işleri.",
+  alternates: { canonical: "/projeler" },
+};
 
 // Her proje model sheet'te bir panel: üstte "PROJE 01" + ad, içeride görsel çerçevesi ve
 // metin; geniş ekranda görsel bir solda bir sağda. Görseli olmayan projede Dakay durur.

@@ -5,7 +5,11 @@ import SayfaBasligi from "@/components/SayfaBasligi";
 import { getSosyalLinkler } from "@/lib/icerik";
 import { dakayDer } from "@/lib/site";
 
-export const metadata: Metadata = { title: "İletişim" };
+export const metadata: Metadata = {
+  title: "İletişim",
+  description: "Arda Kaya ile iletişim: GitHub, LinkedIn ve e-posta.",
+  alternates: { canonical: "/iletisim" },
+};
 
 // const.md: form yok — ziyaretçi e-posta veya sosyal medyadan istediği gibi yazar.
 export default async function Iletisim() {
