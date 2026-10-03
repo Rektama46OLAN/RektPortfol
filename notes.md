@@ -37,7 +37,7 @@ Faz uzun görünüyorsa ikiye böl; ilerleme ölçülemeyen faz faz değildir.
 
 | Faz | İçerik | Bitiş kriteri |
 |---|---|---|
-| **0** | Kurulum: Next.js + TS + Tailwind projesi, git, Vercel'e bağlama | `npm run dev` ile localhost açılıyor **ve** Vercel preview URL'i aynı boş sayfayı gösteriyor |
+| **0** ✅ | Kurulum: Next.js + TS + Tailwind projesi, git, Vercel'e bağlama | `npm run dev` ile localhost açılıyor **ve** Vercel preview URL'i aynı boş sayfayı gösteriyor |
 | **1** | Görsel iskelet: palet token'ları (siyah + 5 gri), font, üst bar + footer, **statik** Dakay SVG bileşeni, anasayfa hero'su | Siyah vurgu ve Dakay için kontrast kararı verilmiş; hero, Dakay ile birlikte 1440 px ve 375 px genişlikte ekran görüntüsünde taşma/çakışma olmadan görünüyor; Arda görüntüyü onaylıyor |
 | **2** | Ziyaretçi sayfaları, **sabit veriyle** (DB yok): `/hakkimda`, `/projeler`, `/cv`, `/iletisim` | Dört sayfa kendi URL'inde menüden açılıyor, örnek CV PDF'i indiriliyor, sosyal linkler doğru adrese gidiyor |
 | **2b** *(sonra)* | Dakay'a hafif hareket: nefes, hover'da ifade değişimi | Hareket ekranda çalışıyor; `prefers-reduced-motion` açıkken duruyor |

@@ -46,3 +46,27 @@ Yarım kalan işler buraya değil `gecmis.md`'ye yazılır.
   reddedebilir (CLAUDE.md, notes.md vb. "çakışan dosya" sayılır); geçici klasörde kurup
   taşımak gerekebilir.
 - Dokunulan dosyalar: .git/
+
+## [2026-10-03] Faz 0 — Kurulum — TAMAMLANDI
+- Ne yapıldı: Next.js 16.3.8 + TS + Tailwind 4 kuruldu, Türkçe yer tutucu sayfa, commit
+  `31ea458` push'landı, repo Arda'nın isteğiyle public yapıldı (öncesinde sır taraması:
+  temiz). Vercel projesi `rekt10/rektportfol` açıldı, deploy alındı.
+  Bitiş kriteri doğrulandı: localhost:3000 → 200, https://rektportfol.vercel.app → 200,
+  ikisi de aynı sayfa (`lang="tr"`, "yapım aşamasında"). Lint temiz, build başarılı.
+- Yol boyunca çıkanlar:
+  - `create-next-app` dolu klasöre kurmuyor ve kendi CLAUDE.md/AGENTS.md'sini üretiyor →
+    scratchpad'de `--skip-install` ile kurulup taşındı, o dosyalar alınmadı.
+  - `next dev`, AI ajanı algılayınca kural bloğunu CLAUDE.md'ye yazıyor (AGENTS.md yoksa) →
+    AGENT.md ile senkron bozulur. `agentRules: false` + aynı uyarı iki dosyaya elle.
+  - Vercel MCP bağlayıcısı `rekt10` takımına yetkisiz (403, takım listesi boş) → Vercel CLI'a
+    geçildi.
+  - `npx vercel login` `!` ile çalışınca çıktı görünmeden bekliyor (device-code akışı).
+    Arka planda başlatılan ilk login, Arda tarayıcıda onaylamadan önce Rekt tarafından
+    durduruldu → token yazılmadı. Ders: login sürecini öldürme, `run_in_background` ile
+    bitmesini bekle.
+  - `vercel link` `.gitignore`'a `.vercel` ve `.env*` ekledi; zaten vardı → geri alındı.
+    `.env.local` (OIDC token) git dışında, doğrulandı.
+  - Projenin ilk deploy'u Vercel'de otomatik production oluyor. Deployment URL'leri
+    (`*-rekt10.vercel.app`) koruma arkasında (302), `rektportfol.vercel.app` açık.
+- Dokunulan dosyalar: package.json, package-lock.json, next.config.ts, tsconfig.json,
+  eslint.config.mjs, postcss.config.mjs, src/app/*, CLAUDE.md, AGENT.md, notes.md, .vercel/
