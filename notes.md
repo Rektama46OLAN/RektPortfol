@@ -44,9 +44,9 @@ Faz uzun görünüyorsa ikiye böl; ilerleme ölçülemeyen faz faz değildir.
 | **3a** ✅ | Veri katmanı: Neon bağlantısı, şema, sayfalar DB'den okur | Sabit veri koddan silinmiş; DB'de bir satır elle değiştirilince sayfa değişiyor |
 | **3b-1** ✅ | Admin: giriş + oturum + deneme sınırı, profil ve sosyal link düzenleme | Girişsiz `/admin/*` → `/admin/giris`; yanlış şifre 5 kez → 15 dk kilit; doğru şifre → panel; profil alanları ve linkler (ekle/düzenle/sil) kaydedilince ziyaretçi sayfasında **anında** görünüyor; çıkış oturumu kapatıyor |
 | **3b-2** ✅ | Admin: projeler + görsel yükleme (Blob) + CV kalemleri ve yetenekler | Panelden proje ekle/düzenle/sil, görsel yükle/sil, CV kalemi ve yetenek ekle/düzenle/sil → ziyaretçi sayfasında anında görünüyor |
-| **3c** | Yeniden tasarım (v3, "Dakay'ın karakter dosyası"): model sheet dili, parametrik Dakay (ifade + poz), konuşma balonları, 404 (bkz. *Tasarım v3*) | Beş sayfa + 404'ün 1440 ve 375 px ekran görüntüsü `reports/tasarim-v3/`'te; taşma/çakışma yok; admin paneli eski koyu hâliyle açılıyor; Arda görüntüleri onaylıyor |
+| **3c** ✅ | Yeniden tasarım (v3, "Dakay'ın karakter dosyası"): model sheet dili, parametrik Dakay (ifade + poz), konuşma balonları, 404 (bkz. *Tasarım v3*) | Beş sayfa + 404'ün 1440 ve 375 px ekran görüntüsü `reports/tasarim-v3/`'te; taşma/çakışma yok; admin paneli eski koyu hâliyle açılıyor; Arda görüntüleri onaylıyor |
 | ~~**3d**~~ | ~~Dakay pozları~~ → 3c'ye katıldı: ArdaOS'taki rig 7 ifade ve kol pozlarını zaten taşıyordu | — |
-| **4** | Yayın: custom domain (ardakaya.com, DNS Vercel'de), prod env değişkenleri, SEO (JSON-LD, sitemap, robots, kanonik, paylaşım görseli) | Site custom domain'de HTTPS ile açılıyor; prod'da admin girişi ve dosya yükleme çalışıyor |
+| **4** ✅ | Yayın: custom domain (ardakaya.com, DNS Vercel'de), prod env değişkenleri, SEO (JSON-LD, sitemap, robots, kanonik, paylaşım görseli) | Site custom domain'de HTTPS ile açılıyor; prod'da admin girişi ve dosya yükleme çalışıyor |
 
 **Faz 0 notu:** `create-next-app` kendi `CLAUDE.md` (`@AGENTS.md`) ve `AGENTS.md`'sini
 üretiyor; `next dev` de bir AI ajanı algılayınca kural bloğunu `CLAUDE.md`'ye yazıyor

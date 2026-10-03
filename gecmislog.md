@@ -290,3 +290,32 @@ Yarım kalan işler buraya değil `gecmis.md`'ye yazılır.
 - Dokunulan dosyalar: const.md, notes.md, src/app/{globals.css,layout.tsx,not-found.tsx},
   src/app/(site)/**, src/components/{Dakay,Hero,Balon,Panel,Menu,PdfButonu,SayfaBasligi,
   SiteHeader,SiteFooter}.tsx, src/lib/site.ts, reports/{tasarim-v3,karanlik-onizleme}/
+
+## [2026-10-03] Faz 4 — yayın (ardakaya.com) + SEO — TAMAMLANDI
+- Ne yapıldı: ardakaya.com (Metunic'te kayıtlı) ve www Vercel projesine eklendi; Arda ad
+  sunucularını Vercel'e taşıdı, www → ardakaya.com 308 yönlendirmesini kurdu. Kayıt merkezi
+  17:36'da güncellendi, sertifika 17:44'te hazırdı. Site adı "Arda Kaya" (title şablonu,
+  metadataBase). SEO: JSON-LD Person + WebSite, sitemap, robots (/admin kapalı), kanonik
+  adresler, sayfa açıklamaları, sabit PNG paylaşım görseli. Search Console doğrulama TXT kaydı
+  Vercel DNS'e CLI ile eklendi. Unvandan "Junior" kalktı; unvan artık yalnız panelde, açıklamalar
+  ondan türetiliyor. Commit'ler: afdecb7, 285bde8.
+- Bitiş kriteri: https://ardakaya.com HTTPS ile açılıyor (sayfalar 200, http → https, www →
+  apex 308, /admin → /admin/giris); Arda canlıda giriş yaptı, görsel yükleyip sildi — çalıştı.
+- Yol boyunca çıkanlar:
+  - Metunic ad sunucuları bölge açılmadığı için REFUSED dönüyordu: alan adı hiç çözülmüyordu.
+  - Bu makineden UDP DNS (nslookup 8.8.8.8) zaman aşımına uğruyor → dns.google /
+    cloudflare-dns.com HTTPS çözücüleri ve Verisign RDAP ile kontrol edildi.
+  - Vercel MCP aracı rekt10 ekibine 403 veriyor (yeniden yetki gerekir); CLI çalışıyor.
+    www yönlendirmesi CLI'de yok → Arda panelden yaptı.
+  - neon `sql` şablonunda regex içindeki ters bölü düşüyor (`^Juniors+` → `^Juniors+`);
+    UPDATE hata vermeden hiçbir şey değiştirmedi → desen parametre olarak verildi. Ders:
+    RETURNING çıktısını oku, "güncellendi" yazısı yetmez.
+  - next/og ImageResponse Türkçe için statik font ister → paylaşım görseli geçici bir sayfadan
+    ekran görüntüsüyle üretildi (CDP clip 1200×630, nextjs-portal gizlendi).
+  - Search Console sitemap'i ilk gönderimde "Getirilemedi" dedi; Googlebot UA ile sitemap 200,
+    geçerli XML. Büyük ihtimalle DNS'in saatler önce SERVFAIL vermesinin önbelleği; Arda'ya URL
+    Denetimi + 1–2 gün bekleme önerildi.
+- Dokunulan dosyalar: src/app/{layout.tsx,sitemap.ts,robots.ts,opengraph-image.png,
+  opengraph-image.alt.txt}, src/app/(site)/**/page.tsx, src/app/admin/layout.tsx,
+  src/components/KisiBilgisi.tsx, src/lib/seo.ts, const.md, notes.md; Vercel: alan adları +
+  TXT kaydı; Neon (dev + main): profil.cv_unvan.
