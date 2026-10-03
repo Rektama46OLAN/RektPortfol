@@ -70,3 +70,30 @@ Yarım kalan işler buraya değil `gecmis.md`'ye yazılır.
     (`*-rekt10.vercel.app`) koruma arkasında (302), `rektportfol.vercel.app` açık.
 - Dokunulan dosyalar: package.json, package-lock.json, next.config.ts, tsconfig.json,
   eslint.config.mjs, postcss.config.mjs, src/app/*, CLAUDE.md, AGENT.md, notes.md, .vercel/
+
+## [2026-10-03] Vercel ↔ GitHub otomatik deploy — TAMAMLANDI
+- Ne yapıldı: Arda Vercel hesabına GitHub giriş bağlantısını ekledi; `npx vercel git connect`
+  → "Connected". Doğrulama: `28d7386` push'u kendiliğinden production deploy'u başlattı
+  (`rektportfol-9gtb2bv8z`, alias `rektportfol-git-main-rekt10.vercel.app`, Ready, 18 sn);
+  rektportfol.vercel.app → 200. Artık `main` push'u = production deploy.
+- Yol boyunca çıkanlar: İlk deneme 400 — "You need to add a Login Connection to your GitHub
+  account first." Repo erişimi değil, Vercel hesabında GitHub login bağlantısı eksikti.
+- Dokunulan dosyalar: yok (Vercel proje ayarı).
+
+## [2026-10-03] Faz 1 — Görsel iskelet — TAMAMLANDI
+- Ne yapıldı: Palet token'ları (`globals.css` `@theme`: ink/noir/iron/fog/silver/veil),
+  Archivo (latin + latin-ext), SiteHeader + SiteFooter, statik Dakay bileşeni (vault model
+  sheet'inin `front()` + `faceFront('def')` çıktısı birebir JSX'e), anasayfa Hero'su (şablon
+  düzeni: başlık + buton | Dakay | üç blok). Üç kontrast teması denendi, Arda koyuyu seçti
+  (const.md). Bitiş kriteri: 1440 ve 375 px'te taşma yok (scrollWidth ölçüldü), Arda son
+  görüntüyü onayladı. Görüntüler `reports/faz1-kontrast/`, `reports/faz1-anasayfa/`.
+- Yol boyunca çıkanlar:
+  - Headless Chrome 500 px'ten dar açılmıyor → CDP `Emulation.setDeviceMetricsOverride`
+    ile 375 px çekildi (betik scratchpad'de `shot.mjs`, Node 22 yerleşik WebSocket).
+    CDP cevabında `Runtime.evaluate` sonucu `msg.result.result.value` — iki kat iç içe.
+  - `lang="tr"` sayesinde `uppercase` Türkçe doğru: "BENİ TAKİP ET", "HAKKIMDA".
+  - Bash'te `python -` Windows Store kısayoluna gidip takıldı (120 sn zaman aşımı, dosya
+    değişmedi). Python gerekiyorsa tam yol: `pythoncore-3.14-64\python.exe`.
+  - Hero metinleri ve LinkedIn/Instagram linkleri yer tutucu → Faz 2'de Arda'dan.
+- Dokunulan dosyalar: src/app/{globals.css,layout.tsx,page.tsx}, src/components/{Dakay,
+  Hero,SiteHeader,SiteFooter}.tsx, src/lib/site.ts, const.md, notes.md, reports/faz1-*

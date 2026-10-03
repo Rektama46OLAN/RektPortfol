@@ -87,6 +87,13 @@ diye tekrar tartışılır; asıl maliyet orada.
   Gerekçe: Arda'nın kararı (2026-10-03) — şablondaki mavi vurgu alınmaz, siyah-gri ortaklığı
   isteniyor. Siyah Dakay'ın çizgi ve gözlük rengiyle de aynı aile.
 
+- **Zemin koyudur (`#2B2B2B` noir); Dakay'ın arkasında açık gri hale, siyah butonlarda açık gri kenar (`ring-silver`) bulunur.**
+  Gerekçe: Dakay (grafit gövde, siyah çizgi) ve siyah vurgu noir zeminde kayboluyordu.
+  Faz 1'de üç tema ekran görüntüsüyle karşılaştırıldı (`reports/faz1-kontrast/`): koyu +
+  hale, orta (`#565656` zemin), açık (`#E0E0E0` zemin). Açık tema kontrastı en iyi veriyordu
+  ama şablonun koyu havasını götürüyordu; Arda koyuyu seçti (2026-10-03). Bedeli: siyah
+  vurgu tek başına değil, kenar çizgisiyle seçiliyor.
+
 - **Dakay ilk sürümde statiktir; hareket sonra eklenir.**
   Gerekçe: Arda'nın kararı (2026-10-03). Önce görsel iskelet oturur, animasyon onun üstüne
   biner. ArdaOS'taki zengin animasyon rafta (notes.md).
