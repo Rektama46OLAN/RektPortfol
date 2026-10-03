@@ -40,6 +40,17 @@ diye tekrar tartışılır; asıl maliyet orada.
   yer gerekiyordu; giriş kapısı olarak anasayfaya oturdu. Rekt önerdi, Arda onayladı
   (2026-10-03).
 
+- **CV bir PDF dosyası değildir; içeriği `/cv` sayfasına metin olarak yazılır.**
+  Gerekçe: Arda'nın kararı (2026-10-03, Faz 2 içeriği verilirken). Sayfa metni hem
+  okunur hem admin panelinden alan alan düzenlenebilir; PDF'i her değişiklikte yeniden
+  üretip yüklemek gerekmez.
+
+- **Telefon numarası sitede ve repoda yer almaz; iletişim e-posta ve sosyal hesaplar üzerinden.**
+  Gerekçe: Repo public; git geçmişine giren numara sonradan silinse de geçmişte kalır ve
+  açık sitede bot taramasıyla spam aramaya açılır. CV metninde numara vardı, commit'ten
+  önce fark edildi, Arda tamamen çıkarılmasını istedi (2026-10-03). CV ekran görüntüleri
+  de numarasız yeniden çekildi.
+
 - **Site dili Türkçedir.**
   Gerekçe: Arda'nın kararı (2026-10-03). Çok dilli altyapı (i18n) kurulmaz.
 
@@ -106,9 +117,10 @@ diye tekrar tartışılır; asıl maliyet orada.
   yalnızca lokalde çalışıyor; Neon Vercel'e doğrudan bağlanıyor, bağlantı bilgisi env
   değişkeni olarak otomatik geliyor. Arda onayı: 2026-10-03.
 
-- **Yüklenen dosyalar (CV PDF'i, proje görselleri) Vercel Blob'da tutulur.**
+- **Yüklenen dosyalar (proje görselleri) Vercel Blob'da tutulur.**
   Gerekçe: Aynı kalıcılık duvarı — sunucuya yazılan dosya bir sonraki çağrıda yok olabilir.
   Blob Vercel'in kendi depolaması, ek hesap gerektirmiyor. Arda onayı: 2026-10-03.
+  (İlk hâlinde "CV PDF'i" de vardı; CV PDF olmaktan çıkınca düştü, aşağıya bkz.)
 
 - **Admin girişi tek kullanıcılıdır; şifre env değişkeninde durur, kullanıcı tablosu ve OAuth yoktur.**
   Gerekçe: Panele yalnızca Arda girecek. Kullanıcı yönetimi, kayıt, rol sistemi bu ihtiyaç

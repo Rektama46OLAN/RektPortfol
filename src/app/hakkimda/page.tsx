@@ -1,0 +1,35 @@
+import type { Metadata } from "next";
+import Dakay from "@/components/Dakay";
+import SayfaBasligi from "@/components/SayfaBasligi";
+import { eposta, hakkimda } from "@/lib/site";
+
+export const metadata: Metadata = { title: "Hakkımda · RektPortfol" };
+
+export default function Hakkimda() {
+  return (
+    <section className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-12 sm:px-8 lg:grid-cols-[1fr_16rem] lg:items-center lg:py-20">
+      <div>
+        <SayfaBasligi etiket="Hakkımda" baslik="Ben Arda" />
+        <div className="mt-8 max-w-2xl space-y-5 text-lg leading-relaxed text-silver">
+          {hakkimda.map((p) => (
+            <p key={p}>{p}</p>
+          ))}
+        </div>
+        <p className="mt-10 text-sm font-semibold uppercase tracking-widest">Bana ulaşmak için</p>
+        <a
+          href={`mailto:${eposta}`}
+          className="mt-3 inline-block border-b border-iron pb-1 text-lg transition-colors hover:border-veil"
+        >
+          📧 {eposta}
+        </a>
+      </div>
+      <div className="relative mx-auto w-44 lg:w-full">
+        <div
+          className="absolute inset-[-15%] bg-[radial-gradient(closest-side,rgba(179,179,179,.3),transparent)]"
+          aria-hidden
+        />
+        <Dakay className="relative w-full" zeminGolgesi="rgba(0,0,0,.45)" />
+      </div>
+    </section>
+  );
+}

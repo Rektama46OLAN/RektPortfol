@@ -18,4 +18,9 @@ Bir madde tamamlandığında buradan silinir ve özeti `gecmislog.md`'ye taşın
 
 ## Açık işler
 
-_(yok)_
+## [2026-10-03] LinkedIn linki doğrulaması
+- Durum: `https://www.linkedin.com/in/arda-kaya-946bb6202/` sitede (footer, /iletisim, /cv).
+  curl 999 döndü (LinkedIn bot engeli) → otomatik doğrulanamadı.
+- Sonraki adım: Arda tarayıcıda tıklayıp profilin açıldığını söyler → madde kapanır. Açılmazsa
+  `src/lib/site.ts` → `sosyal` düzeltilir.
+- Bağlam: Orijinal linkteki `?isSelfProfile=true` bilerek çıkarıldı.

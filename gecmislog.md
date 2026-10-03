@@ -97,3 +97,28 @@ Yarım kalan işler buraya değil `gecmis.md`'ye yazılır.
   - Hero metinleri ve LinkedIn/Instagram linkleri yer tutucu → Faz 2'de Arda'dan.
 - Dokunulan dosyalar: src/app/{globals.css,layout.tsx,page.tsx}, src/components/{Dakay,
   Hero,SiteHeader,SiteFooter}.tsx, src/lib/site.ts, const.md, notes.md, reports/faz1-*
+
+## [2026-10-03] Faz 2 — Ziyaretçi sayfaları — TAMAMLANDI
+- Ne yapıldı: `/hakkimda` (metin + e-posta + Dakay), `/projeler` (4 kart: görsel, teknoloji,
+  GitHub), `/cv` (metin CV, bölüm bölüm), `/iletisim` (e-posta, GitHub, LinkedIn — form yok).
+  İçerik `src/lib/site.ts`'de, Arda'nın metinleri kelimesi kelimesine. Hero: "Ben Arda".
+  Görseller `public/projeler/`. Lint + build temiz; beş sayfa 1440/375'te taşmasız
+  (`reports/faz2-sayfalar/`); GitHub linkleri 200. Arda commit + push istedi.
+- Yol boyunca çıkanlar:
+  - CV PDF olmaktan çıktı (Arda) → const.md'ye yeni madde, Blob maddesinden "CV PDF'i"
+    düştü, Faz 2 / 3b kriterleri güncellendi.
+  - CV metninde telefon numarası vardı. Repo public olduğu için commit'ten ÖNCE soruldu;
+    Arda tamamen çıkarılmasını istedi → koddan ve CV ekran görüntülerinden temizlendi
+    (görüntüler yeniden çekildi; resim içindeki veri de repoya girer). const.md'de kural.
+  - Algida kartında 2. görsel kesiliyordu: `grid-cols-[3fr_1fr]`'de `1fr` = `minmax(auto,1fr)`,
+    görselin intrinsic genişliği sütunu küçültmüyor → `minmax(0,…)`. Ardından iki hücreye de
+    `aspect-[4/3]` verilince küçük hücre kısa kalıp altta boşluk bıraktı → oran yalnız ilk
+    görselde, diğerleri `h-full`.
+  - "E-posta Sınıflandırma"nın linki verilmemişti → `gh repo list` ile `mail-siniflandirma`
+    bulundu. AlgidaBot ve ardaos-vault private → link konmadı.
+  - LinkedIn'e curl 999 döndü (bot engeli) → doğrulama Arda'da, gecmis.md'de açık.
+  - Not edildi, dokunulmadı: DakLink projeler sayfasında "YouTube, X, TikTok'ta denendi",
+    CV'de "yüzlerce siteden" diyor.
+- Dokunulan dosyalar: src/lib/site.ts, src/app/{hakkimda,projeler,cv,iletisim}/page.tsx,
+  src/components/{SayfaBasligi,Hero}.tsx, public/projeler/*, const.md, notes.md,
+  reports/faz2-sayfalar/*

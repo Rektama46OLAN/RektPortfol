@@ -8,7 +8,7 @@ import { sosyal } from "@/lib/site";
 const bloklar = [
   {
     baslik: "Hakkımda",
-    metin: "Backend tarafında kendini geliştiren bir yazılımcıyım.",
+    metin: "Muğla'da yaşayan, bilişim okuyan bir yazılımcıyım.",
     href: "/hakkimda",
     link: "Devamını oku",
   },
@@ -27,12 +27,10 @@ export default function Hero() {
         <div className="lg:relative lg:z-10">
           <span className="block h-1 w-16 bg-veil" aria-hidden />
           <h1 className="mt-6 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            Ben Arda,
-            <br />
-            backend geliştirici
+            Ben Arda
           </h1>
           <p className="mt-5 max-w-sm text-silver">
-            Sağlam, okunur ve sade sunucu tarafı kod yazmayı seviyorum.
+            Web siteleri, masaüstü uygulamaları ve Discord botları geliştiriyorum.
           </p>
           <Link
             href="/hakkimda"
