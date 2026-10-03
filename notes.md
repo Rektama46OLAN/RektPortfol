@@ -44,6 +44,8 @@ Faz uzun görünüyorsa ikiye böl; ilerleme ölçülemeyen faz faz değildir.
 | **3a** ✅ | Veri katmanı: Neon bağlantısı, şema, sayfalar DB'den okur | Sabit veri koddan silinmiş; DB'de bir satır elle değiştirilince sayfa değişiyor |
 | **3b-1** ✅ | Admin: giriş + oturum + deneme sınırı, profil ve sosyal link düzenleme | Girişsiz `/admin/*` → `/admin/giris`; yanlış şifre 5 kez → 15 dk kilit; doğru şifre → panel; profil alanları ve linkler (ekle/düzenle/sil) kaydedilince ziyaretçi sayfasında **anında** görünüyor; çıkış oturumu kapatıyor |
 | **3b-2** ✅ | Admin: projeler + görsel yükleme (Blob) + CV kalemleri ve yetenekler | Panelden proje ekle/düzenle/sil, görsel yükle/sil, CV kalemi ve yetenek ekle/düzenle/sil → ziyaretçi sayfasında anında görünüyor |
+| **3c** | Yeniden tasarım (v3, "Dakay'ın karakter dosyası"): model sheet dili, parametrik Dakay (ifade + poz), konuşma balonları, 404 (bkz. *Tasarım v3*) | Beş sayfa + 404'ün 1440 ve 375 px ekran görüntüsü `reports/tasarim-v3/`'te; taşma/çakışma yok; admin paneli eski koyu hâliyle açılıyor; Arda görüntüleri onaylıyor |
+| ~~**3d**~~ | ~~Dakay pozları~~ → 3c'ye katıldı: ArdaOS'taki rig 7 ifade ve kol pozlarını zaten taşıyordu | — |
 | **4** | Yayın: custom domain, prod env değişkenleri | Site custom domain'de HTTPS ile açılıyor; prod'da admin girişi ve dosya yükleme çalışıyor |
 
 **Faz 0 notu:** `create-next-app` kendi `CLAUDE.md` (`@AGENTS.md`) ve `AGENTS.md`'sini
@@ -93,6 +95,72 @@ Kaynaklar `Downloads`'ta: şablon PDF'i + 5'li gri palet PDF'i. Maskot: Dakay (v
 neredeyse siyah `#0B0B0D`. `#2B2B2B` zeminde siluet kaybolur. Çözüm adayları: arkasına açık
 gri hale/spot ışığı (şablondaki adamın arkası da hafif aydınlık), ya da hero'da zemini
 `#565656`'ya açmak. Faz 1'de ikisi de denenip ekran görüntüsüyle karşılaştırılır.
+
+## Tasarım v2 (2026-10-03, Arda onayı)
+
+Çıkış noktası: Arda sitenin "çok sade ve AI slop" durduğunu söyledi, Pinterest'te
+"portfolio site design" aramasından örnek gösterdi. Rekt sayfayı gezdi; örneklerin ortak
+numarası **arka planı kesilmiş figür + dev yazı**. Bizde figür Dakay.
+
+Değerlendirilen üç yön: (1) dev yazı + figür üst üste, gri paletle; (2) editoryal ızgara +
+tek sert vurgu; (3) koyu zemin + sıcak ışık (bugünküne en yakın, en "şablon"). Arda
+**1 + tek vurgu rengi** seçti, vurgu **turuncu**.
+
+**Görsel sistem**
+- Afiş başlıkları: Archivo, `wdth` ~62 (dar), 900, BÜYÜK HARF, satır aralığı ~0.85. Yeni font
+  yok — Türkçe karakterler aynı fonttan.
+- Turuncu `#FF6B1A` (~5.5:1 `#2B2B2B` üstünde), az kullanılır: ana buton, hover/odak, başlık
+  sonu `*`, aktif menü, Dakay'ın arkasındaki hale. Paragraf, kart dolgusu, zemin turuncu olmaz.
+- Gri hale → turuncu ışık; `ring-silver` kenar hilesi gereksizleşir.
+- Beş gri zemin/yüzey/metin olarak kalır; `ink` ikincil ton.
+
+**Sayfalar (Faz 3c)**
+- Üst bar: `</>` turuncu; menü hap butonlar, aktif sayfa turuncu kenarlı.
+- `SayfaBasligi`: `/ ETİKET` kalır, başlık dev dar BÜYÜK HARF + turuncu `*`.
+- Anasayfa: ekran genişliğinde dev **ARDA**, Dakay önünde (alt kısmı harflere biner), turuncu
+  hale; sol altta kısa metin + turuncu buton; üç blok yazının altında şerit. Mobilde yazı
+  ekrana sığar, Dakay altına, bloklar alt alta.
+- Projeler: bento — ilk proje iki sütun, diğerleri ikişer; GitHub linki turuncu, hover'da kenar turuncu.
+- Hakkımda: dev başlık, Dakay sağda turuncu haleyle (3d'de el sallayan poz).
+- CV: yapı aynı, bölüm etiketleri ve madde imleri turuncu — okunabilirlik için sade.
+- İletişim: her satır dev dar yazı (GITHUB…), hover'da turuncu + ok kayar.
+- Footer: aynı, hover turuncu.
+
+**Bilinçli olarak yok:** rakam şeridi ("6+ yıl, 80+ proje") — uydurma rakam junior profilde
+ters teper. Admin ve DB'ye dokunulmaz; 3c tamamen görsel.
+
+## Tasarım v3 (2026-10-03) — "Dakay'ın karakter dosyası"
+
+v2'yi Arda da "yine sade" buldu ve serbest araştırma istedi (Chrome açık, "istediğin siteye
+gir"). Gezilenler ve alınan ders:
+- **Awwwards / Godly** — güncel trend: kâğıt/krem zeminler, dokunsal nesneler, editoryal serif/dar başlık.
+- **Josh Comeau** — karakter sahnenin içinde (tepede oturuyor), kişilik her yerde.
+- **Duolingo** — maskot arayüzle etkileşiyor (telefon tutuyor, butonun yanında), kalın basılabilir butonlar.
+- **Gumroad** — kalın siyah çizgili illüstrasyon, sert gölgeli kartlar, konuşma balonu altyazıları.
+- **Brittany Chiang** — koyu tek sütun + yan menü: AI portföylerinin kopyaladığı kalıp → kaçınılacak.
+
+Karar: başkasının şablonu yerine Dakay'ın **kendi model sheet'i** (`model-sheet.html`) — renkleri,
+fontları, başlık bloğu, künye tablosu, ifade kartları, mavi kılavuz çizgileri. ArdaOS'taki
+sahnenin konuşma balonu ve parametrik rig'i (`.claude/scripts/dakay/sahne.html`) siteye taşındı.
+
+**Parçalar**
+- `Dakay` — `ifade` (def, meh, sus, smirk, angry, shock, sad), `sol`/`sag` kol pozu, `gozlukIndi`, `kirp="kafa"`.
+- ~~`DakayKilavuz`~~ — kılavuz çizgili panel; Arda Dakay'ın çerçevesiz durmasını istedi, kaldırıldı.
+- `Balon` — sahnedeki balon: kâğıt, kalın kenar, sert gölge, "DAKAY" künyesi.
+- `Panel` — model sheet paneli (afiş başlık + mono not). `basilir` — kalkan/basılan sert gölge.
+
+**Sayfa başına Dakay**
+| Sayfa | İfade / poz | Replik |
+|---|---|---|
+| Anasayfa | yarım sırıtış, el sallıyor; çerçevesiz | "Ben Dakay. Arda'nın işlerini ben gösteririm." |
+| Kapı kartları | smirk · sus · def · gözlük indi (kafa); ifade adı yazılmaz | — |
+| Hakkımda | şüpheli (kaş kalkık = onay), işaret ediyor; çerçevesiz, yalnız Dakay + balon | "Okuyun. Ben onayladım." |
+| Projeler | şüpheli, eller belde; görselsiz projede gözlük indi | "Hepsine baktım." / "Görsel yok. Ben buradayım ama." |
+| CV | gözlük indi, kâğıdın kenarından bakıyor | "Okudum. Fena değil." |
+| İletişim | varsayılan, eller belde; çerçevesiz, yalnız Dakay + balon | "Yaz. Cevap gelir." |
+| 404 | şaşkın, işaret ediyor | "Burada bir şey yok. Ben de baktım." |
+
+**Bilinçli olarak yok:** uydurma rakam şeridi; admin paneline dokunma (koyu kalır).
 
 ## Açık sorular
 

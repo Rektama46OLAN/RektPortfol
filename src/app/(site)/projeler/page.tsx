@@ -1,60 +1,106 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Balon from "@/components/Balon";
+import Dakay from "@/components/Dakay";
+import Panel from "@/components/Panel";
 import SayfaBasligi from "@/components/SayfaBasligi";
 import { getProjeler } from "@/lib/icerik";
+import { dakayDer } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Projeler · RektPortfol" };
 
+// Her proje model sheet'te bir panel: üstte "PROJE 01" + ad, içeride görsel çerçevesi ve
+// metin; geniş ekranda görsel bir solda bir sağda. Görseli olmayan projede Dakay durur.
 export default async function Projeler() {
   const projeler = await getProjeler();
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-8 lg:py-20">
-      <SayfaBasligi etiket="Projeler" baslik="Üzerinde çalıştığım işler" />
-      <ul className="mt-12 grid gap-8 md:grid-cols-2">
-        {projeler.map((p) => (
-          <li key={p.id} className="flex flex-col overflow-hidden rounded-lg border border-iron bg-ink/40">
-            {p.gorseller.length > 0 && (
-              <div className={`grid gap-px bg-iron ${p.gorseller.length > 1 ? "grid-cols-[minmax(0,3fr)_minmax(0,1fr)]" : ""}`}>
-                {p.gorseller.map((g, i) => (
-                  // Oranı ilk görsel belirler; yanındakiler o satırın yüksekliğine yayılır.
+    <div className="mx-auto w-full max-w-6xl px-4 pt-6 sm:px-8 lg:pt-10">
+      <SayfaBasligi
+        etiket={`Bölüm 02 · ${projeler.length} proje`}
+        baslik="Projeler"
+        giris="Üzerinde çalıştığım işler, kullandığım teknolojilerle birlikte."
+        yan={
+          <div className="flex items-end gap-2 max-md:hidden">
+            <Balon satirlar={dakayDer.projeler} kuyruk="sag" className="mb-24" />
+            <Dakay ifade="sus" sag="hipR" sol="hipL" etiket="" className="nefes w-32" />
+          </div>
+        }
+      />
+
+      <ol className="mt-10 space-y-10">
+        {projeler.map((p, sira) => (
+          <Panel
+            key={p.id}
+            as="li"
+            baslik={p.ad}
+            not={`proje ${String(sira + 1).padStart(2, "0")}`}
+            className="shadow-sert"
+          >
+            <div className={`grid lg:grid-cols-2 ${sira % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
+              {/* Görsel çerçeveyi boşluksuz doldurur, küçülmez ve kırpılmaz: çerçeve sabit bir oran
+                  yerine görselin kendi oranını alır (Arda, 2026-10-03). Bu yüzden görsel sütunu kendi
+                  boyunda kalır (self-start); iki sütun arasındaki çizgi metin sütununda durur ki
+                  metin daha uzunsa da çizgi sonuna kadar insin. */}
+              <div className={`bg-kagit-2 max-lg:border-b-2 max-lg:border-murekkep ${p.gorseller.length > 0 ? "lg:self-start" : ""}`}>
+                {p.gorseller.length > 0 ? (
                   <div
-                    key={g.src}
-                    className={`relative flex items-center justify-center bg-ink ${i === 0 ? "aspect-[4/3]" : "h-full"}`}
+                    className={`grid gap-0.5 bg-murekkep ${p.gorseller.length > 1 ? "grid-cols-[minmax(0,3fr)_minmax(0,1fr)]" : ""}`}
                   >
-                    <Image
-                      src={g.src}
-                      alt={g.alt}
-                      width={g.en}
-                      height={g.boy}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="h-full w-full object-contain"
-                    />
+                    {p.gorseller.map((g, i) =>
+                      i === 0 ? (
+                        <Image
+                          key={g.src}
+                          src={g.src}
+                          alt={g.alt}
+                          width={g.en}
+                          height={g.boy}
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                          // İlk projenin görseli ekranın ilk açılışında görünür (LCP) — beklemeden yüklensin.
+                          loading={sira === 0 ? "eager" : undefined}
+                          className="block h-auto w-full"
+                        />
+                      ) : (
+                        // Yandaki küçük görseller ilk görselin boyuna yayılır, taşan kısmı kırpılır.
+                        <div key={g.src} className="relative min-h-full">
+                          <Image src={g.src} alt={g.alt} fill sizes="25vw" className="object-cover object-top" />
+                        </div>
+                      ),
+                    )}
                   </div>
-                ))}
+                ) : (
+                  <div className="flex h-full flex-col items-center justify-center gap-3 p-6 sm:aspect-[4/3] sm:flex-row sm:gap-2">
+                    {/* Telefonda balon üstte, Dakay altında; genişte yan yana — yoksa 375 px'e sığmıyor. */}
+                    <Balon satirlar={dakayDer.gorselYok} kuyruk="sag" className="sm:mb-32" />
+                    <Dakay ifade="meh" gozlukIndi etiket="" className="nefes w-40" />
+                  </div>
+                )}
               </div>
-            )}
-            <div className="flex flex-1 flex-col p-6">
-              <h2 className="text-2xl font-semibold tracking-tight">{p.ad}</h2>
-              <p className="mt-3 leading-relaxed text-silver">{p.aciklama}</p>
-              <ul className="mt-5 flex flex-wrap gap-2" aria-label="Teknolojiler">
-                {p.teknolojiler.map((t) => (
-                  <li key={t} className="rounded-full border border-iron px-3 py-1 text-xs text-silver">
-                    {t}
-                  </li>
-                ))}
-              </ul>
-              {p.link && (
-                <a
-                  href={p.link}
-                  className="mt-6 self-start border-b border-iron pb-1 text-xs font-semibold uppercase tracking-wider transition-colors hover:border-veil"
-                >
-                  GitHub →
-                </a>
-              )}
+
+              <div
+                className={`flex flex-col border-murekkep p-5 sm:p-7 ${sira % 2 ? "lg:border-r-2" : "lg:border-l-2"}`}
+              >
+                <p className="text-lg leading-relaxed">{p.aciklama}</p>
+                <p className="etiket mt-6 text-[10px] text-mavi">Teknolojiler</p>
+                <ul className="mt-2 flex flex-wrap gap-2" aria-label="Teknolojiler">
+                  {p.teknolojiler.map((t) => (
+                    <li key={t} className="rounded-md border-[1.5px] border-murekkep bg-kagit-2 px-2.5 py-1 font-mono text-xs">
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+                {p.link && (
+                  <a
+                    href={p.link}
+                    className="basilir mt-8 self-start rounded-full border-2 border-murekkep bg-turuncu px-5 py-2.5 text-sm font-semibold"
+                  >
+                    GitHub&apos;da gör →
+                  </a>
+                )}
+              </div>
             </div>
-          </li>
+          </Panel>
         ))}
-      </ul>
-    </section>
+      </ol>
+    </div>
   );
 }

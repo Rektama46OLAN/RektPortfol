@@ -35,15 +35,20 @@ diye tekrar tartışılır; asıl maliyet orada.
   Gerekçe: Arda'nın kararı (2026-10-03). Şablon tek sayfa + menü yapısında; ondan yalnızca
   stil alınır, sayfa yapısı alınmaz.
 
-- **Anasayfa (`/`) şablonun hero'sudur: büyük başlık, ortada Dakay, sağda üç kısa blok; menü ve bloklar dört sayfaya link verir.**
-  Gerekçe: Ayrı sayfa kararından sonra şablonun en karakteristik parçası olan hero'ya bir
-  yer gerekiyordu; giriş kapısı olarak anasayfaya oturdu. Rekt önerdi, Arda onayladı
-  (2026-10-03).
+- **Anasayfa (`/`) bir giriş kapısıdır: ad + künye + Dakay'la tanışma paneli, altında dört sayfaya giden kartlar (her kartta başka bir Dakay ifadesi).**
+  Gerekçe: Ayrı sayfa kararından sonra anasayfaya bir görev gerekiyordu: kim olduğunu bir
+  bakışta söylemek ve dört sayfaya yönlendirmek (Arda onayı, 2026-10-03). Biçimi tasarım
+  v3'te model sheet'in başlık bloğu + İFADELER bölümüne döndü (2026-10-03).
 
-- **CV bir PDF dosyası değildir; içeriği `/cv` sayfasına metin olarak yazılır.**
+- **CV bir PDF dosyası değildir; içeriği `/cv` sayfasına metin olarak yazılır. "PDF indir" butonu aynı sayfayı tarayıcının baskısıyla A4 PDF'e çevirir.**
   Gerekçe: Arda'nın kararı (2026-10-03, Faz 2 içeriği verilirken). Sayfa metni hem
   okunur hem admin panelinden alan alan düzenlenebilir; PDF'i her değişiklikte yeniden
-  üretip yüklemek gerekmez.
+  üretip yüklemek gerekmez. Sonra Arda PDF istedi, çünkü sayfa telefonda ~3200 px'ti
+  (2026-10-03). Gömülü PDF telefonda daha kötü okunduğu için seçilen yol: Deneyim, Projeler,
+  Yetenekler bölümleri her genişlikte kapalı gelir (başlığa tıklayınca açılır) + baskı
+  düzeninden PDF — PDF her zaman paneldeki veriyle aynı, ayrı dosya yok. Baskıdan önce
+  bütün bölümler açılır (`PdfButonu`). Kalemlerin "alt" satırındaki tarihler gösterilmez,
+  link gibi duranlar (`github.com/…`) kalır — Arda'nın isteği.
 
 - **Telefon numarası sitede ve repoda yer almaz; iletişim e-posta ve sosyal hesaplar üzerinden.**
   Gerekçe: Repo public; git geçmişine giren numara sonradan silinse de geçmişte kalır ve
@@ -80,34 +85,42 @@ diye tekrar tartışılır; asıl maliyet orada.
 
 ### Tasarım
 
-- **Görsel yön "Technology Black Modern" Webflow şablonudur: koyu zemin, büyük başlık, ortada figür, yanda kısa bloklar.**
-  Gerekçe: Arda'nın verdiği tasarım örneği (2026-10-03). Kaynak:
-  `C:\Users\Arda\Downloads\Technology Black Modern Webflow website template.pdf`.
+- **Ziyaretçi sitesinin görsel dili Dakay'ın model sheet'idir ("karakter dosyası"): krem kâğıt, mürekkep kenar, sert gölge, dar afiş başlık, mavi mono etiket, kılavuz çizgileri.**
+  Gerekçe: Önce "Technology Black Modern" şablonu (v1), sonra "dev yazı + Dakay" (v2) denendi;
+  ikisini de Arda "sade, AI slop" buldu (2026-10-03). Arda Chrome'u açıp serbest araştırma
+  istedi: Awwwards, Godly, Josh Comeau, Duolingo, Gumroad, Brittany Chiang gezildi. Çıkan:
+  iyi örneklerde karakter sahnenin içinde, arayüzle etkileşiyor (Duolingo, Comeau); kalın
+  çizgili illüstrasyon + sert gölgeli kart + konuşma balonu (Gumroad); koyu tek sütun
+  (Chiang) ise artık "AI portföyü" kalıbı. Dakay'ın kendi model sheet'i bu dili zaten
+  taşıyordu — başkasının şablonu yerine Arda'nın kendi dünyası. Ayrıntı `notes.md` → *Tasarım v3*.
 
-- **Ana palet beş gridir: `#2B2B2B` Charcoal Noir · `#565656` Ironclad Grey · `#848484` Urban Fog · `#B3B3B3` Moonlit Silver · `#E0E0E0` Cloud Veil.**
-  Gerekçe: Arda'nın verdiği palet (2026-10-03). Kaynak:
-  `C:\Users\Arda\Downloads\Esthetic and trendy 5-color palette.pdf`.
+- **Site renkleri: masa `#E4DDC3` · kâğıt `#F3EEDA` / `#EBE5CD` · mürekkep `#16171A` / `#55565C` · cetvel `#CFC7AA` · mavi `#3E6DB5`; vurgu turuncu `#FF6B1A`.**
+  Gerekçe: İlk beşi model sheet'in CSS'inden birebir (`model-sheet.html` `:root`). Turuncu
+  Dakay'ın sahnesindeki pufun rengi, v2'den kaldı. Turuncu yalnız **dolgu** olur, üstüne
+  mürekkep yazı gelir (kâğıt üstünde turuncu yazı ~2.6:1, okunmaz). Faz 1'de açık zeminin
+  Dakay'a en iyi kontrastı verdiği zaten görülmüştü (`reports/faz1-kontrast/`).
 
-- **Sitenin maskotu Dakay'dır; şablondaki insan fotoğrafının yerini o alır.**
-  Gerekçe: Arda'nın kararı (2026-10-03) — bütün sitenin maskotu olsun istiyor. Dakay
-  ArdaOS'ta zaten SVG olarak çizilmiş; model sheet, palet, oranlar ve "Yapma" listesi
-  `C:\obsidianvault\obsidianvault\🏰 300-Projects\Gozluklu-Yumurta\Gozluklu-Yumurta.md`'de.
-  Siteye çizim anahtarından SVG olarak taşınır; o nottaki çizim kuralları burada da geçerli.
+- **Admin paneli koyu kalır; Arda'nın beş gri paleti (`#2B2B2B` · `#565656` · `#848484` · `#B3B3B3` · `#E0E0E0`) orada yaşar.**
+  Gerekçe: Panel yalnız Arda'nın; yeniden tasarım ziyaretçi sitesi içindi, panele dokunmak
+  kapsam dışı. Gri palet: Arda, 2026-10-03, `Downloads\Esthetic and trendy 5-color palette.pdf`.
 
-- **Vurgu rengi siyahtır; palet siyah + beş gri olarak çalışır.**
-  Gerekçe: Arda'nın kararı (2026-10-03) — şablondaki mavi vurgu alınmaz, siyah-gri ortaklığı
-  isteniyor. Siyah Dakay'ın çizgi ve gözlük rengiyle de aynı aile.
+- **Fontlar: Archivo (gövde + `wdth` ekseniyle dar afiş başlık) ve IBM Plex Mono (etiketler).**
+  Gerekçe: Model sheet'in fontları. Archivo'nun genişlik ekseni ayrı bir afiş fontuna gerek
+  bırakmıyor; ikisi de `latin-ext` ile Türkçe karakterleri taşıyor.
 
-- **Zemin koyudur (`#2B2B2B` noir); Dakay'ın arkasında açık gri hale, siyah butonlarda açık gri kenar (`ring-silver`) bulunur.**
-  Gerekçe: Dakay (grafit gövde, siyah çizgi) ve siyah vurgu noir zeminde kayboluyordu.
-  Faz 1'de üç tema ekran görüntüsüyle karşılaştırıldı (`reports/faz1-kontrast/`): koyu +
-  hale, orta (`#565656` zemin), açık (`#E0E0E0` zemin). Açık tema kontrastı en iyi veriyordu
-  ama şablonun koyu havasını götürüyordu; Arda koyuyu seçti (2026-10-03). Bedeli: siyah
-  vurgu tek başına değil, kenar çizgisiyle seçiliyor.
+- **Sitenin maskotu Dakay'dır; insan fotoğrafının yerini o alır ve her sayfada başka ifade/pozla durur.**
+  Gerekçe: Arda'nın kararı (2026-10-03). Çizim ArdaOS'taki parametrik rig'den taşındı
+  (`.claude/scripts/dakay/sahne.html`): 7 ifade, kol pozları, "gözlük indi". Böylece ayrı
+  poz çizimi fazına (3d) gerek kalmadı. Çizim kuralları
+  `🏰 300-Projects\Gozluklu-Yumurta\Gozluklu-Yumurta.md`'de; referansla çelişirse referans kazanır.
 
-- **Dakay ilk sürümde statiktir; hareket sonra eklenir.**
-  Gerekçe: Arda'nın kararı (2026-10-03). Önce görsel iskelet oturur, animasyon onun üstüne
-  biner. ArdaOS'taki zengin animasyon rafta (notes.md).
+- **Dakay'ın konuşma balonlarındaki replikler koddadır (`src/lib/site.ts` → `dakayDer`), admin panelinde değil.**
+  Gerekçe: Replikler içerik değil sitenin süsü — Arda hakkında bilgi taşımaz. Karakter
+  notuna uyar: kısa cümle, az konuşma. Panele alan eklemek bu ihtiyaç için fazla.
+
+- **Dakay'ın tek hareketi hafif "nefes"tir; `prefers-reduced-motion` açıkken durur. Zengin animasyon rafta.**
+  Gerekçe: İlk karar "statik, hareket sonra"ydı. Nefes CSS ile bedava ve karakteri canlı
+  gösteriyor; sahnedeki koreografi (zıplama, el sallama döngüsü) ayrı iş.
 
 ### Mimari
 

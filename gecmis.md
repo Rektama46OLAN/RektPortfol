@@ -18,8 +18,4 @@ Bir madde tamamlandığında buradan silinir ve özeti `gecmislog.md`'ye taşın
 
 ## Açık işler
 
-## [2026-10-03] Faz 3b-2 commit + canlı görsel yükleme denemesi
-- Durum: 3b-2 kodu bitti, e2e dev'de 29/29 + 17/17. Commit/push yok (Arda istemedi).
-- Sonraki adım: Arda commit + push derse → deploy → Arda canlıda bir projeye görsel yüklesin
-  (canlıdan yüklenen `projeler/` klasörüne gider; canlıya yazma testini Rekt yapmaz).
-- Bağlam: Blob deposu canlıyla ortak; dev testleri `dev/` klasörünü kullanıp temizledi.
+_(yok)_

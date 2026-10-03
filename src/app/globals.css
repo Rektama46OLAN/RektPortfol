@@ -1,18 +1,110 @@
 @import "tailwindcss";
 
-/* Palet — const.md: siyah vurgu + beş gri. Renk kodu bileşenlerde yazılmaz, bu isimler kullanılır. */
+/* Renkler. Bileşenlerde renk kodu yazılmaz, bu isimler kullanılır.
+   Ziyaretçi sitesi (tasarım v3): Dakay'ın model sheet'inin kâğıt dili — const.md.
+   Admin paneli koyu kalır: noir/iron/fog/silver/veil/ink onun tonları. */
 @theme {
-  --color-ink: #0b0b0d; /* siyah vurgu — Dakay'ın çizgi rengiyle aynı */
-  --color-noir: #2b2b2b; /* Charcoal Noir */
-  --color-iron: #565656; /* Ironclad Grey */
-  --color-fog: #848484; /* Urban Fog */
-  --color-silver: #b3b3b3; /* Moonlit Silver */
-  --color-veil: #e0e0e0; /* Cloud Veil */
+  /* — ziyaretçi sitesi — */
+  --color-masa: #e4ddc3; /* sayfa zemini */
+  --color-kagit: #f3eeda; /* kart, panel */
+  --color-kagit-2: #ebe5cd; /* panel içi alan */
+  --color-murekkep: #16171a; /* metin, kenar, sert gölge */
+  --color-murekkep-2: #55565c; /* ikincil metin */
+  --color-cetvel: #cfc7aa; /* ince çizgi, kılavuz */
+  --color-mavi: #3e6db5; /* mono etiketler, kılavuz çizgileri */
+  --color-turuncu: #ff6b1a; /* vurgu: yalnız dolgu, üstünde mürekkep yazı */
+
+  /* — admin paneli — */
+  --color-ink: #0b0b0d;
+  --color-noir: #2b2b2b;
+  --color-iron: #565656;
+  --color-fog: #848484;
+  --color-silver: #b3b3b3;
+  --color-veil: #e0e0e0;
 
   --font-sans: var(--font-archivo);
+  --font-mono: var(--font-plex-mono);
+
+  /* Sert gölge: Dakay'ın konuşma balonundaki gibi, bulanıklıksız. */
+  --shadow-sert: 4px 5px 0 var(--color-murekkep);
+  --shadow-sert-kucuk: 2px 3px 0 var(--color-murekkep);
+}
+
+/* Afiş başlığı: Archivo'nun dar ve kalın hâli (model sheet h1'i). Boyut kullanıldığı yerde. */
+@utility afis {
+  font-weight: 800;
+  font-stretch: 68%;
+  text-transform: uppercase;
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* Model sheet'teki mavi mono etiket: "MODEL SHEET · KARAKTER 01". */
+@utility etiket {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Basılabilir buton/kart: üstüne gelince kalkar, basınca gölgesine oturur. */
+@utility basilir {
+  box-shadow: var(--shadow-sert);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 7px 0 var(--color-murekkep);
+  }
+  &:active {
+    transform: translate(4px, 5px);
+    box-shadow: 0 0 0 var(--color-murekkep);
+  }
 }
 
 body {
   background: var(--color-noir);
   color: var(--color-veil);
+}
+
+/* Klavye odağı: turuncu çerçeve — hem kâğıt zeminde hem admin'in koyu zemininde görünür. */
+:focus-visible {
+  outline: 3px solid var(--color-turuncu);
+  outline-offset: 3px;
+}
+
+/* Baskı (CV → PDF indir): A4, beyaz kâğıt; kâğıt rengi baskıda da korunmasın, mürekkep harcamasın. */
+@page {
+  size: A4;
+  margin: 16mm 14mm;
+}
+@media print {
+  body {
+    background: #fff;
+  }
+}
+
+/* Dakay nefes alır; hareket azaltma açıksa durur. */
+@keyframes nefes {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.018);
+  }
+}
+@utility nefes {
+  transform-origin: 50% 100%;
+  animation: nefes 3s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nefes {
+    animation: none;
+  }
 }

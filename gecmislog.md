@@ -249,3 +249,44 @@ Yarım kalan işler buraya değil `gecmis.md`'ye yazılır.
 - Dokunulan dosyalar: next.config.ts, package.json, src/lib/{form,gorsel}.ts,
   src/app/admin/{actions,projeler-actions,cv-actions}.ts, src/app/admin/(panel)/** ,
   src/components/admin/SilButonu.tsx, CLAUDE.md, AGENT.md, notes.md
+
+## [2026-10-03] Faz 3b-2 canlıya alındı + canlı görsel denemesi — TAMAMLANDI
+- Ne yapıldı: `3f31ce3` push'landı (sır taraması temiz), Vercel 33 sn'de deploy etti; Rekt
+  okuma kontrolleri yaptı (sayfalar 200, yeni admin yolları girişsiz → 307 /admin/giris).
+  Arda canlıda bir projeye kendi görselini yükledi ve sildi — çalıştı.
+- Yol boyunca çıkanlar: Canlı yazma doğrulaması yine site sahibinde (const.md: Rekt'in
+  testleri dev dalında).
+- Dokunulan dosyalar: yok.
+
+## [2026-10-03] Faz 3c — yeniden tasarım (v2 → v3 "Dakay'ın karakter dosyası") — TAMAMLANDI
+- Ne yapıldı: Arda siteyi "sade, AI slop" buldu. v2 (dev dar "ARDA" + turuncu vurgu) yapıldı,
+  Arda "yine sade" dedi ve Chrome'u açıp serbest araştırma istedi. Awwwards, Godly, Josh Comeau,
+  Duolingo, Gumroad, Brittany Chiang gezildi; sonuç: başkasının şablonu yerine Dakay'ın kendi
+  model sheet'i (krem kâğıt, mürekkep kenar, sert gölge, Archivo dar + IBM Plex Mono, mavi
+  etiket). ArdaOS'taki parametrik rig siteye taşındı (7 ifade, kol pozları, gözlük indi) →
+  Faz 3d (poz çizimi) 3c'ye katıldı. Her sayfada başka Dakay + konuşma balonu; 404 sayfası.
+  Admin paneli koyu kaldı.
+- Arda geri bildirimleriyle: CV bölümleri açılır-kapanır + "PDF indir" (tarayıcı baskısı, A4,
+  baskıda bölümler açık); CV tarihleri gizli; footer yazısı, kapı kartı etiketleri, kılavuz
+  çizgili paneller kalktı; logo %50, sayfa etiketleri ~%20 büyüdü; menü ve "CV'yi oku" hover'da
+  turuncu; proje görselleri kendi oranında, boşluksuz ve kırpılmadan.
+- Denenip bırakılanlar: proje görselinde object-cover (kırpma) — Arda vazgeçti; karanlık tema
+  önizlemesi (çıkartma hatlı Dakay) — Arda kullanmamaya karar verdi, kod geri alındı,
+  görüntüler `reports/karanlik-onizleme/`.
+- Doğrulama: tsc + eslint temiz; 5 sayfa + 404 × 1440/375 ekran görüntüsü `reports/tasarim-v3/`,
+  yatay taşma yok; temiz tarayıcıda konsol hatasız; CV baskısı PDF olarak üretilip okundu.
+- Yol boyunca çıkanlar:
+  - line-height dar olunca İ/Ş noktası satır dışına taşıyor → afiş başlıklarına üst boşluk.
+  - SVG'de `overflow="visible"` viewBox kırpmasını iptal ediyor (kafa kırpması tam gövde
+    gösterdi) → yalnız tam boyda visible.
+  - Tailwind v4 `@theme` gölge değişkeni :root'ta çözülür; renk değişkenini bir sınıfta
+    ezmek gölgeyi döndürmez — gölge de yeniden tanımlanmalı.
+  - JSX yorumu ternary'nin içinde kardeş öğe olunca derleme kırılıyor (tsc yakalamadı, Next
+    yakaladı) → her değişiklikten sonra sayfayı da aç.
+  - CDP betiği: WebSocket'e "open" dinleyicisi geç eklenirse olay kaçar, betik sonsuza
+    bekler → `readyState` kontrolü. Git Bash: `MSYS_NO_PATHCONV=1`, Node'a `/tmp` için `cygpath -w`.
+  - Arda'nın gördüğü hydration uyarısı: istemci bileşeni açık sekmedeyken değişti (dev HMR);
+    temiz yüklemede yok.
+- Dokunulan dosyalar: const.md, notes.md, src/app/{globals.css,layout.tsx,not-found.tsx},
+  src/app/(site)/**, src/components/{Dakay,Hero,Balon,Panel,Menu,PdfButonu,SayfaBasligi,
+  SiteHeader,SiteFooter}.tsx, src/lib/site.ts, reports/{tasarim-v3,karanlik-onizleme}/

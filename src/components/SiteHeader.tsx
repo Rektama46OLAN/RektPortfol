@@ -1,25 +1,20 @@
 import Link from "next/link";
+import Dakay from "@/components/Dakay";
+import Menu from "@/components/Menu";
 import { getProfil } from "@/lib/icerik";
-import { menu } from "@/lib/site";
 
 export default async function SiteHeader() {
   const profil = await getProfil();
   return (
-    <header className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-4 py-6 sm:px-8">
-      <Link href="/" className="text-lg font-semibold tracking-tight">
-        <span className="text-fog">&lt;/&gt;</span> {profil.kisa_ad}
+    <header className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-4 px-4 py-5 sm:px-8 print:hidden">
+      <Link href="/" className="group flex items-center gap-3.5">
+        <Dakay kirp="kafa" ifade="def" className="h-[54px] w-auto transition-transform group-hover:-rotate-6" etiket="" />
+        <span>
+          <span className="afis block text-4xl">{profil.kisa_ad}</span>
+          <span className="etiket mt-0.5 block text-[15px] text-mavi">portfolyo</span>
+        </span>
       </Link>
-      <nav aria-label="Ana menü">
-        <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-silver">
-          {menu.map((m) => (
-            <li key={m.href}>
-              <Link href={m.href} className="transition-colors hover:text-veil">
-                {m.etiket}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <Menu />
     </header>
   );
 }
